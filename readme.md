@@ -1,6 +1,6 @@
-<h1 align="center"> Welcome To Youtube Crawler Ver 1.1.0-b 👋</h1>
+<h1 align="center"> Youtube Crawler🎵</h1>
 <p align="center">
-  <a href="https://github.com/alonitac/DevOpsCourseApril21/tree/Noams_Branch">
+  <a href="https://github.com/Noamstrauss/YouTube_Crawler">
     <img src="https://img.shields.io/badge/changelog-gitmoji-brightgreen.svg" alt="gitmoji-changelog">
   </a>
 </p>
@@ -18,7 +18,11 @@ GitHub Project :
 * [Setup](#setup)
 
 ## General info
-This App Downloads Videos From YouTube And Uploads It To AWS S3 Bucket.
+**This App Creates An User in AWS.*
+
+**Downloads Videos From YouTube And Uploads It To An S3 Bucket.*
+
+**Deletes Expired User Accounts And User Data.*
 
 
 ## Technologies
@@ -26,9 +30,13 @@ Project is created with:
 * Python
 	
 ## Setup
-To run this project, install requirements.txt
+To run this project,
 
-Run:
+1.Install AWS CLI:
+
+[AWS CLI Installation](https://github.com/Noamstrauss/YouTube_Crawler)
+
+2.Install Requirements:
 ```
 $ pip install -r requirements.txt
 ```

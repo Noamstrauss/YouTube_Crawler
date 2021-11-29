@@ -4,6 +4,8 @@ from yes_or_no import yes_or_no
 from number_input import number_vali
 import time
 import pyfiglet
+from loggetsetup import *
+
 
 # App Welcome Sign
 welcome = pyfiglet.figlet_format("Youtube Crawler")
@@ -21,6 +23,7 @@ while play:
 
         # Creating a username for Youtube Crawler
         create_user(username)
+        logger.info('User: %s Created!',username)
 
         # Greeting The New User
         time.sleep(1.2)
@@ -41,9 +44,12 @@ while play:
 
         # Importing Youtube Downloader And Uploader To AWS S3 Bucket
         from User.youtube_crawler import upload
+        
 
         # Calling Youtube With search_str,search_results,username
         upload(username, search_str, number)
+
+        logger.info('Downloded Successfully %s ',search_str)
 
         # Asking User If To Create Another User
         print("------------------------------------------------------------")
@@ -66,8 +72,10 @@ while play:
 print("------------------------------------------------------------")
 print((colored('Thank You for Using Youtube Crawler By Noam \U0001f60d', 'blue', attrs=['bold'],)))
 print("------------------------------------------------------------")
-print("See You Next Time \U0001f60d")
+print("See You Next Time \U0001f600")
 print("------------------------------------------------------------")
+logger.info('----------------------')
+logger.info('End Log')
 exit(0)
 
 

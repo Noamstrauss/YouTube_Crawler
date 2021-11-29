@@ -5,22 +5,28 @@ from termcolor import colored
 from yes_or_no import yes_or_no
 import time
 from config import *
+from loggetsetup import *
+
+#boto3 Clients
 client = boto3.client('iam')
+
+
+#boto3 IAM resource
 s3 = boto3.resource('s3')
-client = boto3.client('iam')
 iam = boto3.resource('iam')
+
 policy = iam.Policy(permission)
 
 
-
+# Deletes users older than max_user_age_seconds
 def delete_outdated_usernames():
 
     # Asking If To Print Of List Of Users After Deletion
     yes_or_no("Would You Like To Print A list Of Users After Deletion?")
 
-    # Deletes users older than max_user_age_seconds
+    
     while True:
-            try:
+            try: # KeyboardInterrupt
                     response = client.list_users()
 
                     users_d = (response['Users'])
@@ -30,18 +36,71 @@ def delete_outdated_usernames():
                         expired = get_user_age_seconds(fo_user)
                         if expired == True and fo_user != admin:
 
+                            # Trying To Delete Users Files From S3 Bucket After He Expired
+                            try:
+                                print((colored("Trying To Delete Users '{}' Files...".format(fo_user), 'yellow')))
+                                path = fo_user + "/"
+                                bucket1 = s3.Bucket(bucket)
+                                bucket1.objects.filter(Prefix=path).delete()
+                                print((colored("Deleted Successfully '{}' Files".format(fo_user), 'green')))
+                                logger.info('Deleted %s Files Successfully ,fo_user')
+                                print("--------------------------------------------")
+                                time.sleep(2)
+                            except ClientError as e:
+                                print("Unexpected error: %s" % e)
+                                logger.error("Unexpected error: %s" % e)
+                                time.sleep(2)
+
+                            # Trying To Detach User From Policy
                             try:
                                 print((colored("Trying To Detach User '{} ' From Policy...".format(fo_user), 'yellow')))
-                                print("--------------------------------------------")
                                 response_policy = policy.detach_user(
                                     UserName=fo_user)
+                                logger.info('Detached User %s Successfully','fo_user')
+                                print((colored("Successfully Detached '{}' From Policy".format(fo_user), 'green')))
+                                print("--------------------------------------------")
                                 time.sleep(2)
 
                             except client.exceptions.NoSuchEntityException :
                                 print('Policy Was Not Found')
+                                logger.info('Policy Was Not Found')
                                 print("--------------------------------------------")
                                 time.sleep(2)
 
+                            # Trying To Delete User Login Profile (Password)
+                            try:
+                                print((colored("Trying To Delete '{}''s Login Profile ...".format(fo_user),
+                                               'yellow')))
+                                response = client.delete_login_profile(
+                                    UserName=fo_user)
+                                logger.info('Successfully Deleted  %s Login Profile', 'fo_user')
+                                print((colored("Successfully Deleted '{}' Login Profile".format(fo_user), 'green')))
+                                print("--------------------------------------------")
+                                time.sleep(2)
+
+                            except client.exceptions.NoSuchEntityException:
+                                print('Login Profile  Not Found')
+                                logger.info('Login Profile  Not Found')
+                                print("--------------------------------------------")
+                                time.sleep(2)
+
+                            # Trying To Remove User From Group (Permission)
+                            try:
+                                print((colored("Trying To Remove '{}' From Group ...".format(fo_user),
+                                               'yellow')))
+                                response = client.remove_user_from_group(
+                                    GroupName=group,
+                                    UserName=fo_user)
+                                logger.info('Successfully Removed  %s From Group', 'fo_user')
+                                print((colored("Successfully Removed '{}' From Group".format(fo_user), 'green')))
+                                print("--------------------------------------------")
+                                time.sleep(2)
+
+                            except client.exceptions.NoSuchEntityException:
+                                print('Login Profile  Not Found')
+                                logger.info('Login Profile  Not Found')
+                                print("--------------------------------------------")
+                                time.sleep(2)
 
 
                             """
@@ -57,45 +116,41 @@ def delete_outdated_usernames():
                                  # Trying To Delete User From IAM
                             try:
                                 print((colored("Trying To Delete User '{}'...".format(fo_user), 'yellow')))
-                                print("--------------------------------------------")
                                 response_del = client.delete_user(
-                                    UserName=fo_user
-                                )
+                                    UserName=fo_user)
                                 time.sleep(2)
-                                print((colored("Deleted Successfully '{}'".format(fo_user), 'green')))
-                                print("--------------------------------------------")
-                                time.sleep(2)
-                            except ClientError as e:
-                                print("Unexpected error: %s" % e)
-                                time.sleep(2)
-
-                                # Trying To Delete Users Files From S3 Bucket After He Expired
-                            try:
-                                print((colored("Trying To Delete Users '{}' Files...".format(fo_user), 'yellow')))
-                                print("--------------------------------------------")
-                                path = fo_user+"/"
-                                bucket1 = s3.Bucket(bucket)
-                                bucket1.objects.filter(Prefix=path).delete()
-                                print((colored("Deleted Successfully '{}' Files".format(fo_user), 'green')))
-                                print("--------------------------------------------")
+                                print((colored("Successfully Deleted '{}'".format(fo_user), 'green', attrs=['bold'],)))
+                                logger.info('Successfully Deleted User %s ,fo_user')
+                                print("--------------------------------------------",)
+                                print("\n")
                                 time.sleep(2)
                             except ClientError as e:
                                 print("Unexpected error: %s" % e)
+                                logger.error("Unexpected error: %s" % e)
                                 time.sleep(2)
+                                pass
 
-                                # If Statement Is True Printing Active Users In IAM
-                        if yes_or_no == True:
-                            print("Getting users from IAM...")
-                            response = client.list_users()
-                            for x in response['Users']:
-                                print(x['UserName'])
-                                time.sleep(3)
-                                continue
-                    else:
+
+                #If Statement Is True Printing Active Users In IAM
+                    if yes_or_no:
+                        print("Getting users from IAM...")
+                        response = client.list_users()
+                        for x in response['Users']:
+                            print(x['UserName'])
+                            logger.info('Remaining Users: %s',x)
+                            time.sleep(3)
+                            continue
+                        else:
                             print("There Are No Sub's")
+                            logger.info('No Subs')
                             time.sleep(3.5)
+                            logger.info('----------------------')
+                            logger.info('End Log')
             except KeyboardInterrupt:
                 print('Interrupted!')
+                logger.info('User Canceled Operation')
+                logger.info('User Canceled Operation')
+                logger.info('----------------------')
                 exit(1)
 
 
