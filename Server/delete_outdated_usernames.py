@@ -24,13 +24,13 @@ def delete_outdated_usernames():
     # Asking If To Print Of List Of Users After Deletion
     yes_or_no("Would You Like To Print A list Of Users After Deletion?")
 
+
     
     while True:
             try: # KeyboardInterrupt
+                try: # Delete try
                     response = client.list_users()
-
                     users_d = (response['Users'])
-
                     for x in range(len(users_d)):
                         fo_user = users_d[x]['UserName']
                         expired = get_user_age_seconds(fo_user)
@@ -130,8 +130,7 @@ def delete_outdated_usernames():
                                 time.sleep(2)
                                 pass
 
-
-                #If Statement Is True Printing Active Users In IAM
+                    #If Statement Is True Printing Active Users In IAM
                     if yes_or_no:
                         print("Getting users from IAM...")
                         response = client.list_users()
@@ -146,6 +145,8 @@ def delete_outdated_usernames():
                             time.sleep(3.5)
                             logger.info('----------------------')
                             logger.info('End Log')
+                except:
+                    pass
             except KeyboardInterrupt:
                 print('Interrupted!')
                 logger.info('User Canceled Operation')
