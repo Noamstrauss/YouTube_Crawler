@@ -1,7 +1,6 @@
 import boto3
 from datetime import datetime, timezone
 from termcolor import colored
-import time
 from config import *
 client = boto3.client('iam')
 

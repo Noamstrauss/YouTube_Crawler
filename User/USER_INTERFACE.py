@@ -1,10 +1,10 @@
 from User.create_user import create_user
 from termcolor import colored
-from yes_or_no import yes_or_no
-from number_input import number_vali
+from User.yes_or_no import yes_or_no
+from User.number_input import number_vali
 import time
 import pyfiglet
-from loggetsetup import *
+from User.loggetsetup import *
 
 
 # App Welcome Sign
