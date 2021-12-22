@@ -18,12 +18,12 @@ GitHub Project :
 * [Setup](#setup)
 
 ## General info
+
 1.*This App Creates An User in AWS.*
 
 2.*Downloads Videos From YouTube And Uploads It To An S3 Bucket.*
 
 3.*Deletes Expired User Accounts And User Data.*
-
 
 ## Technologies
 Project is created with:
@@ -41,4 +41,3 @@ $ pip install -r requirements.txt
 ```
 Fill The Parameters:
 > Fill Out Config.py 
-> 
