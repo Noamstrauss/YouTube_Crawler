@@ -15,28 +15,28 @@ pipeline {
                  IMG="youtube_crawler:$BUILD_NUMBER"
 
                  echo 'Authentecating With ECS'
-
                  aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $REGISTRY
-
                  echo '--------------------------------------'
+
+                 echo '''
+                 '''
 
                  echo 'Building Docker'
-
                  docker build -t $IMG .
-
                  echo '--------------------------------------'
+
+                 echo '''
+                 '''
 
                  echo 'Setting A Tag To The Docker Image'
                  docker tag $IMG $REGISTRY/$IMG
-
                  echo '--------------------------------------'
+
+                 echo '''
+                 '''
 
                  echo 'Pushing The Image To ECR'
                  docker push $REGISTRY/$IMG
-
-
-
-
                  echo '--------------------------------------'
 
 

@@ -9,7 +9,7 @@
 #6. Create An Policy Permission In AWS IAM To Allow Users To View There Videos.
 #7. Specify  Bellow Policy Permission ARN That You Created In Step 6.
 #8. Run User/USER_INTERFACE.py.
-#9. Run Server/SERVER SCRIPT.py On Server.
+#9. Run Server/SERVER.py On Server.
 
 
 #TODO Define Policy To set Users Permissions
