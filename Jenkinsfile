@@ -1,4 +1,4 @@
-pipeline {
+    pipeline {
   agent any
 
   environment {
@@ -53,14 +53,16 @@ pipeline {
                  echo 'P u s h   W a s   S u c c e s s f u l! '
                  echo '***********************************************'
               '''
-            }
-        steps {
-        echo 'Testing step 2' }
-        script {
-              sh '''
-              echo 'actual script of step 2 in build Stage'
-                 '''
-                 }
+      post {
+        success {
+            echo 'The Pipeline was Successful'
+            emailext body: 'Your Pipeline was Successful', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+        }
+
+        failure {
+            echo 'The Pipeline had an Failure!'
+        }
+
         }
     }
   }
