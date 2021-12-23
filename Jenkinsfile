@@ -23,7 +23,7 @@ pipeline {
 
                  '
 
-                 echo 'Building Docker'
+                 echo 'B  u  i  l  d  i  n  g        D  o  c  k  e  r'
                  docker build -t $IMG .
                  echo '--------------------------------------'
 
