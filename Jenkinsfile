@@ -26,7 +26,7 @@ pipeline {
                  echo '--------------------------------------'
 
                  echo 'Setting A Tag To The Docker Image'
-                 docker tag youtube_crawler:1.0 $REGISTRY/youtube_crawler:${BUILD_NUMBER}
+                 docker tag youtube_crawler:{BUILD_NUMBER} $REGISTRY/youtube_crawler:${BUILD_NUMBER}
 
                  echo '--------------------------------------'
 
