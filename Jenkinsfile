@@ -5,7 +5,7 @@ pipeline {
        REGISTRY = "955114013936.dkr.ecr.us-east-2.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
 
-  }
+               }
 
   stages {
     stage('Build') {
@@ -54,6 +54,13 @@ pipeline {
                  echo '***********************************************'
               '''
             }
+        steps {
+        echo 'Testing step 2' }
+        script {
+              sh '''
+              echo 'actual script of step 2 in build Stage'
+                 '''
+                 }
         }
     }
   }
