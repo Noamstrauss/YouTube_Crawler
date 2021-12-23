@@ -35,6 +35,7 @@ pipeline {
                  docker push $REGISTRY/youtube_crawler:$BUILD_NUMBER
 
 
+
                  echo '--------------------------------------'
 
 
