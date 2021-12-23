@@ -1,10 +1,9 @@
     pipeline {
-  agent any
+        agent any
 
   environment {
        REGISTRY = "955114013936.dkr.ecr.us-east-2.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
-
                }
 
   stages {
@@ -13,7 +12,9 @@
         steps {
             echo 'Starting to build docker image'
             script {
-              sh '''
+              sh
+
+        }      '''
                  IMG="youtube_crawler:$BUILD_NUMBER"
 
                  echo 'Authentecating With ECS'
@@ -53,17 +54,6 @@
                  echo 'P u s h   W a s   S u c c e s s f u l! '
                  echo '***********************************************'
               '''
-      post {
-        success {
-            echo 'The Pipeline was Successful'
-            emailext body: 'Your Pipeline was Successful', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-        }
-
-        failure {
-            echo 'The Pipeline had an Failure!'
-        }
-
-        }
+      }
     }
-  }
-}
+ }
