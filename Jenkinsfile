@@ -10,13 +10,6 @@
     stage('Build') {
       when { anyOf {branch "master";branch "dev"} }
         steps {
-            echo 'Starting to build docker image'
-            script {
-              sh
-
-        }      '''
-                 IMG="youtube_crawler:$BUILD_NUMBER"
-
                  echo 'Authentecating With ECS'
                  aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $REGISTRY
                  echo '--------------------------------------'
@@ -34,7 +27,7 @@
                  '
                  echo '                                               '
                  echo '***********************************************'
-                 echo 'S e t t i n g  A  T a g   T o  4   T h e   D o c k e r   I m a g e'
+                 echo 'S e t t i n g  A  T a g   T o    4   T h e   D o c k e r   I m a g e'
                  echo '***********************************************'
                  docker tag $IMG $REGISTRY/$IMG
                  echo '--------------------------------------'
@@ -54,6 +47,7 @@
                  echo 'P u s h   W a s   S u c c e s s f u l! '
                  echo '***********************************************'
               '''
-      }
+        }
     }
- }
+  }
+}
