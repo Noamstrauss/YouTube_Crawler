@@ -1,6 +1,5 @@
 venv
 .idea
-infra/.terraform
 infra/.terraform.lock.hcl
 *.m4a
 *.mp4

@@ -45,4 +45,4 @@ def create_user(username):
 
 
 if __name__ == '__main__':
-    create_user(" ")
+    create_user("test")
