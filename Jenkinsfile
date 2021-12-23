@@ -21,7 +21,7 @@ pipeline {
 
                  echo 'Building Docker'
 
-                 docker build -t youtube_crawler:${BUILD_NUMBER}.
+                 docker build -t youtube_crawler:${BUILD_NUMBER} .
 
                  echo '--------------------------------------'
 
