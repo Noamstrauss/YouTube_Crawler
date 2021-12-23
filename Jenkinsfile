@@ -25,7 +25,7 @@ pipeline {
                  docker tag youtube_crawler:1.0 $REGISTRY/youtube_crawler:1.0
 
                  echo 'Pushing The Image To ECR'
-                 docker push 955114013936.dkr.ecr.us-east-2.amazonaws.com/youtube_crawler:1.0
+                 docker push $REGISTRY/youtube_crawler:1.0
 
 
               '''
