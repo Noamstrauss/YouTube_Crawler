@@ -17,15 +17,24 @@ pipeline {
 
                  aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $REGISTRY
 
+                 echo '--------------------------------------'
+
                  echo 'Building Docker'
 
-                 docker build -t youtube_crawler .
+                 docker build -t youtube_crawler:${BUILD_NUMBER}.
+
+                 echo '--------------------------------------'
 
                  echo 'Setting A Tag To The Docker Image'
-                 docker tag youtube_crawler:1.0 $REGISTRY/youtube_crawler:1.0
+                 docker tag youtube_crawler:1.0 $REGISTRY/youtube_crawler:${BUILD_NUMBER}
+
+                 echo '--------------------------------------'
 
                  echo 'Pushing The Image To ECR'
-                 docker push $REGISTRY/youtube_crawler:1.0
+                 docker push $REGISTRY/youtube_crawler:${BUILD_NUMBER}
+
+
+                 echo '--------------------------------------'
 
 
               '''
