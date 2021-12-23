@@ -21,7 +21,9 @@ pipeline {
                  echo '--------------------------------------'
 
                  echo '                                               '
-                 echo 'B  u  i  l  d  i  n  g        D  o  c  k  e  r'
+                 echo '***********************************************'
+                 echo 'B u i l d i n g    D o c k e r'
+                 echo '***********************************************'
                  docker build -t $IMG .
                  echo '--------------------------------------'
 
@@ -30,7 +32,9 @@ pipeline {
 
                  '
                  echo '                                               '
-                 echo 'S  e  t  t  i  n  g     A    T  a  g    T  o   4    T  h  e    D  o  c  k  e  r    I  m  a  g  e'
+                 echo '***********************************************'
+                 echo 'S e t t i n g  A  T a g   T o  4   T h e   D o c k e r   I m a g e'
+                 echo '***********************************************'
                  docker tag $IMG $REGISTRY/$IMG
                  echo '--------------------------------------'
 
@@ -39,12 +43,15 @@ pipeline {
 
                  '
                  echo '                                               '
-                 echo 'P  u  s  h  i  n  g    T  h  e    I  m  a  g  e    T  o   E  C  R '
+                 echo '***********************************************'
+                 echo 'P u s h i n g  T h e   I m a g e   T o  E C R '
+                 echo '***********************************************'
                  docker push $REGISTRY/$IMG
                  echo '--------------------------------------'
 
-
-                 echo 'P  u  s  h   W  a  s     S  u  c  c  e  s  s  f u  l! '
+                 echo '***********************************************'
+                 echo 'P u s h   W a s   S u c c e s s f u l! '
+                 echo '***********************************************'
               '''
             }
         }
