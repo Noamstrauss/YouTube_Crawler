@@ -12,6 +12,7 @@ pipeline {
             echo 'Starting to build docker image'
             script {
               sh '''
+                 IMG=youtube_crawler:$BUILD_NUMBER
 
                  echo 'Authentecating With ECS'
 
@@ -21,18 +22,18 @@ pipeline {
 
                  echo 'Building Docker'
 
-                 docker build -t youtube_crawler:$BUILD_NUMBER .
+                 docker build -t $IMG .
 
                  echo '--------------------------------------'
 
                  echo 'Setting A Tag To The Docker Image'
-                 docker tag youtube_crawler:$BUILD_NUMBER $REGISTRY/youtube_crawler:$BUILD_NUMBER
+                 docker tag IMG $REGISTRY/$IMG
 
                  echo '--------------------------------------'
 
                  echo 'Pushing The Image To ECR'
-                 docker push $REGISTRY/youtube_crawler:$BUILD_NUMBER
-                 docker push $REGISTRY/youtube_crawler:$BUILD_NUMBER
+                 docker push $REGISTRY/$IMG
+
 
 
 
