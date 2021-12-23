@@ -3,6 +3,8 @@ pipeline {
 
   environment {
        REGISTRY = "955114013936.dkr.ecr.us-east-2.amazonaws.com"
+       IMG="youtube_crawler:0.0.$BUILD_NUMBER"
+
   }
 
   stages {
@@ -42,6 +44,7 @@ pipeline {
                  echo '--------------------------------------'
 
 
+                 echo 'P  u  s  h   W  a  s     S  u  c  c  e  s  s  f u  l! '
               '''
             }
         }
