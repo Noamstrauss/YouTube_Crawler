@@ -12,7 +12,7 @@ pipeline {
             echo 'Starting to build docker image'
             script {
               sh '''
-                 IMG='youtube_crawler:$BUILD_NUMBER'
+                 IMG="youtube_crawler:$BUILD_NUMBER"
 
                  echo 'Authentecating With ECS'
 
