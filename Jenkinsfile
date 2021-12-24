@@ -4,8 +4,8 @@
   environment {
        REGISTRY = "955114013936.dkr.ecr.us-east-2.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
-       red=("tput setaf 1")
-       green=("tput setaf 2")
+       red="tput setaf 1"
+       green="tput setaf 2"
                }
 
  stages {
