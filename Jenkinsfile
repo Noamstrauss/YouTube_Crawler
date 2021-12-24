@@ -58,7 +58,7 @@
             echo 'Build Success!'
             emailext body: 'Build Success', subject: 'Build Success', to: 'nds597@walla.com'
         }
-        failed {
+        failure {
             echo 'Build Failed!'
             emailext body: 'Build Failed!', subject: 'Build Success', to: 'nds597@walla.com'
         }
