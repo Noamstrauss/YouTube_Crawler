@@ -7,6 +7,7 @@
        red='\033[0;31m'
        green='\033[0;32m'
        yellow='\033[0;33m'
+       EMAIL_TO = 'nds597@walla.com'
        }
 
  stages {
@@ -55,7 +56,9 @@
   post {
          success {
              echo 'This will run only if successful'
-         mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'nds597@walla.com', mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "nds597@walla.com";
+             emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}',
+                    to: "${EMAIL_TO}",
+                    subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
          }
          failure {
              mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'nds597@walla.com', mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "nds597@walla.com";
