@@ -56,7 +56,11 @@
   post {
          success {
              echo 'Build Was Successful'
-             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: $EMAIL_TO, subject: "CI Success: Project name -> ${env.JOB_NAME}", to: $EMAIL_TO;
+            emailext (
+            subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+            body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
+            to: $EMAIL_TO,
+            from: "jenkins-notification@noams-jenkin.com"
          }
          failure {
              echo 'Build failed'
