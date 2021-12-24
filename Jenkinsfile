@@ -53,12 +53,4 @@
         }
     }
   }
-  post {
-         success {
-             echo 'Build Was Successful'
-             emailext body: 'Test Message',
-             subject: 'Test Subject',
-             to: $EMAIL_TO
-            }
-         }
  }
