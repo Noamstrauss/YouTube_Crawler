@@ -56,7 +56,11 @@
       post {
         success {
             echo 'Build Success!'
-            emailext body: 'Build Success', subject: 'Build Success', to: $environment.EMAIL_TO
+            emailext body: 'Build Success', subject: 'Build Success', to: 'nds597@walla.com'
+        }
+        failed {
+            echo 'Build Failed!'
+            emailext body: 'Build Failed!', subject: 'Build Success', to: 'nds597@walla.com'
         }
     }
  }
