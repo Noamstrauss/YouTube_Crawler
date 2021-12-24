@@ -61,8 +61,6 @@
              to: $EMAIL_TO
 
          }
-         failure {
-             echo 'Build failed'
          }
      }
  }
