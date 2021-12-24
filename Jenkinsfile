@@ -50,7 +50,12 @@
             printf "***********************************************"
             printf "                                               "
             '''
+                        }
+                    }
+                  }
+      post {
+        success {
+            echo 'Build Success!'
         }
     }
-  }
  }
