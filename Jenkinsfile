@@ -10,7 +10,7 @@
        }
 
  stages {
-    s1tage('Build') {
+    stage('Build') {
       when { anyOf {branch "master";branch "dev"} }
         steps {
             sh '''
