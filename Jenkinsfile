@@ -58,8 +58,9 @@
             emailext body: 'Build Success', subject: 'Build Success', to: 'nds597@walla.com'
         }
         failure {
-            echo 'Build Failed!'
-            emailext body: 'Build Failed!', subject: 'Build Success', to: 'nds597@walla.com'
+        mail to: 'nds597@walla.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
  }
