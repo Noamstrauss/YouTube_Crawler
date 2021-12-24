@@ -10,7 +10,7 @@
        }
 
  stages {
-    staxge('Build') {
+    stage('Build') {
       when { anyOf {branch "master";branch "dev"} }
         steps {
             sh '''
