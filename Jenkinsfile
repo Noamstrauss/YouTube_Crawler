@@ -7,7 +7,7 @@
        red='\033[0;31m'
        green='\033[0;32m'
        yellow='\033[0;33m'
-        = 'nds597@walla.com'
+        EMAIL_TO = 'nds597@walla.com'
        }
 
  stages {
