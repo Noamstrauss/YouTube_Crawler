@@ -6,6 +6,7 @@
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
        red='\033[0;31m'
        green='\033[0;32m'
+       yellow='\033[0;33m'
        }
 
  stages {
@@ -14,7 +15,7 @@
         steps {
             sh '''
             printf "***********************************************"
-            printf "${red}A u t h e n t e c a t i n g   W i t h   E C S...."
+            printf "${yellow}A u t h e n t e c a t i n g   W i t h   E C S...."
             printf "***********************************************"
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $REGISTRY
             printf "***********************************************"
@@ -23,7 +24,7 @@
             printf "                                               "
             printf "                                               "
             printf "***********************************************"
-            printf "${red}B u i l d i n g    D o c k e r...."
+            printf "${yellow}B u i l d i n g    D o c k e r...."
             printf "***********************************************"
             docker build -t $IMG .
             printf "***********************************************"
@@ -32,7 +33,7 @@
             printf "                                               "
             printf "                                               "
             printf "***********************************************"
-            printf "${red}T a g g i n g   D o c k e r   I m a g e....."
+            printf "${yellow}T a g g i n g   D o c k e r   I m a g e....."
             printf "***********************************************"
             docker tag $IMG $REGISTRY/$IMG
             printf "***********************************************"
@@ -40,7 +41,7 @@
             printf "***********************************************"
             printf "                                               "
             printf "                                               "
-            printf "${red}P u s h i n g  T h e   I m a g e   T o  E C R.... "
+            printf "${yellow}P u s h i n g  T h e   I m a g e   T o  E C R.... "
             printf "***********************************************"
             docker push $REGISTRY/$IMG
             printf "***********************************************"
@@ -51,4 +52,17 @@
         }
     }
   }
+  post {
+         success {
+             echo 'This will run only if successful'
+         mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'nds597@walla.com', mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "nds597@walla.com";
+         }
+         failure {
+             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'nds597@walla.com', mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "nds597@walla.com";
+         }
+     }
+ }
+
+
+
 }
