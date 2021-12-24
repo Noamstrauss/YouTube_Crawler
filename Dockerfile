@@ -1,4 +1,5 @@
 FROM python:3.8-slim-buster
+RUN pwd
 WORKDIR /APP
 RUN pwd
 COPY . .
