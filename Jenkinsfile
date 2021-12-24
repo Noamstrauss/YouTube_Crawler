@@ -56,7 +56,7 @@
       post {
         success {
             echo 'Build Success!'
-            emailext body: 'Build Success', subject: 'Build Success', to: $EMAIL_TO
+            emailext body: 'Build Success', subject: 'Build Success', to: 'nds597@walla.com'
         }
     }
  }
