@@ -59,8 +59,6 @@
              emailext body: 'Test Message',
              subject: 'Test Subject',
              to: $EMAIL_TO
-
+            }
          }
-         }
-     }
- }
+}
