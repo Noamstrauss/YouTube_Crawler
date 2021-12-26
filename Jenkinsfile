@@ -8,7 +8,7 @@
        green='\033[0;32m'
        yellow='\033[0;33m'
        def emailBody = '${JELLY_SCRIPT,template="html_gmail"}'
-       def emailSubject = "${env.JOB_NAME} - Build# ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}"
+       def emailSubject = "${env.JOB_NAME} - Build# ${env.BUILD_NUMBER}"
        }
 
  stages {
@@ -61,7 +61,7 @@
         }
         failure {
             echo 'Build Failed'
-            emailext body: 'Failed Pipeline: Your Pipeline in Branch in Job $BUILD_NUMBER Has Failed To Run.\n Please Visit For More Details $BUILD_URL.', subject: 'Build $BUILD_NUMBER Failed!', to: 'nds597@walla.com'
+            emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
         }
     }
  }
