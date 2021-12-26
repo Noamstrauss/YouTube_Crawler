@@ -55,8 +55,8 @@
       post {
         success {
             echo 'Build Success!'
-            emailext body: 'Your Build $BUILD_NUMBER Has Run Successfully! :).
-            Please Visit For More Details $BUILD_URL. ', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
+            emailext body: '''Your Build $BUILD_NUMBER Has Run Successfully! :).
+            Please Visit For More Details $BUILD_URL. ''', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
         }
         failure {
             echo 'Build Failed!'
