@@ -43,7 +43,7 @@
             printf "                                               "
             printf "${yellow}P u s h i n g  T h e   I m a g e   T o  E C R.... "
             printf "***********************************************"
-            docker push $REGISTRY/$IMG1
+            docker push $REGISTRY/$IMG
             printf "***********************************************"
             printf "${green}P u s h   W a s   S u c c e s s f u l! "
             printf "***********************************************"
@@ -55,11 +55,12 @@
       post {
         success {
             echo 'Build Success!'
-            emailext body: 'Build Success', subject: 'Build Success', to: 'nds597@walla.com'
+            emailext body: 'Your Build $BUILD_NUMBER Has Run Successfully! :).\n Please Visit For More Details $BUILD_URL. ', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
         }
         failure {
-        echo 'Build Failed!'
-        emailext body: 'Failed Pipeline: Your Pipeline in Branch in Job $BUILD_NUMBER Has Failed To Run. \n Please Visit For More Details $BUILD_URL. ', subject: 'Build Failed! , Something is wrong with Job $BUILD_NUMBER', to: 'nds597@walla.com'
+            echo 'Build $BUILD_NUMBER Failed!'
+            emailext body: '''Failed Pipeline: Your Pipeline in Branch in Job $BUILD_NUMBER Has Failed To Run.
+            Please Visit For More Details $BUILD_URL.''', subject: 'Build $BUILD_NUMBER Failed!', to: 'nds597@walla.com'
         }
     }
  }
