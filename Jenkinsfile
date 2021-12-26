@@ -43,7 +43,7 @@
             printf "                                               "
             printf "${yellow}P u s h i n g  T h e   I m a g e   T o  E C R.... "
             printf "***********************************************"
-            docker push $REGISTRY/$IMG
+            docker push $REGISTRY/$IMG1
             printf "***********************************************"
             printf "${green}P u s h   W a s   S u c c e s s f u l! "
             printf "***********************************************"
