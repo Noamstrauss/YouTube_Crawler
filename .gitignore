@@ -1,10 +1,8 @@
 venv
 .idea
-infra/.terraform.lock.hcl
+infra
 *.m4a
 *.mp4
-User/*.mp4
-User/*.m4a
-User/*.webm
-User/*.part
+*.webm
+*.part
 

@@ -39,5 +39,14 @@ To run this project,
 ```shell
 $ pip install -r requirements.txt
 ```
-Fill The Parameters:
-> Fill Out Config.py 
+3.Fillout The Parameters:
+> In "Config.py"
+
+4.Run The User Shell Interface
+
+>"USER_INTERFACE.py"
+
+5.Run The Server Script
+
+>"SERVER.py"
+
