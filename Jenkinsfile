@@ -7,6 +7,8 @@
        red='\033[0;31m'
        green='\033[0;32m'
        yellow='\033[0;33m'
+       def emailBody = '${SCRIPT, template="regressionfailed.groovy"}'
+       def emailSubject = "${env.JOB_NAME} - Build# ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}"
        }
 
  stages {
@@ -55,7 +57,7 @@
       post {
         success {
             echo 'Build Success'
-            emailext body: 'Your Build $BUILD_NUMBER Has Run Successfully! :). \nPlease Visit For More Details $BUILD_URL. ', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
+            emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
         }
         failure {
             echo 'Build Failed'
