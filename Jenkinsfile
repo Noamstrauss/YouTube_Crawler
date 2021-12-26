@@ -43,7 +43,7 @@
             printf "                                               "
             printf "${yellow}P u s h i n g  T h e   I m a g e   T o  E C R.... "
             printf "***********************************************"
-            docker push $REGISTRY/$IMG1
+            docker push $REGISTRY/$IMG
             printf "***********************************************"
             printf "${green}P u s h   W a s   S u c c e s s f u l! "
             printf "***********************************************"
@@ -55,7 +55,8 @@
       post {
         success {
             echo 'Build Success!'
-            emailext body: 'Your Build $BUILD_NUMBER Has Run Successfully! :).\n Please Visit For More Details $BUILD_URL. ', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
+            emailext body: '''Your Build $BUILD_NUMBER Has Run Successfully! :).
+            Please Visit For More Details $BUILD_URL. ''', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
         }
         failure {
             echo 'Build $BUILD_NUMBER Failed!'
