@@ -60,7 +60,7 @@
             emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
         }
         failure {
-            echo 'Build Failed'
+             echo 'Build Failed'
             emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
         }
     }
