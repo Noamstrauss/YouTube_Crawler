@@ -55,11 +55,11 @@
       post {
         success {
             echo 'Build Success!'
-            emailext body: 'Your Build $BUILD_NUMBER Has Run Successfully! :).\n
+            emailext body: 'Your Build $BUILD_NUMBER Has Run Successfully! :).
             Please Visit For More Details $BUILD_URL. ', subject: 'Build $BUILD_NUMBER Success! ', to: 'nds597@walla.com'
         }
         failure {
-            echo 'Build $BUILD_NUMBER Failed!'
+            echo 'Build Failed!'
             emailext body: '''Failed Pipeline: Your Pipeline in Branch in Job $BUILD_NUMBER Has Failed To Run.
             Please Visit For More Details $BUILD_URL.''', subject: 'Build $BUILD_NUMBER Failed!', to: 'nds597@walla.com'
         }
