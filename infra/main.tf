@@ -32,8 +32,14 @@ module "vpc" {
 
 
 resource "aws_instance" "Terraform-Test-ec2" {
-  ami           = "ami-830c94e3"
+  ami           = "ami-002068ed284fb165b"
   instance_type = "t2.micro"
+
+  network_interface {
+  network_interface_id = aws_network_interface.foo.id
+  device_index         = 0
+  }
+
   
 
   tags = {
