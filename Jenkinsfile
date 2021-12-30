@@ -18,6 +18,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
         when { anyOf {branch "master";branch "dev"} }
+             echo '=== Building Docker Image ==='
             steps {
                 sh '''
             printf "${yellow}Authenticating With ECS...."
@@ -46,9 +47,12 @@ pipeline {
 
         }
         stage('Test Application') {
-
             steps {
+                echo '=== Testing App ==='
+                script {
                 sh echo 'Test Success'
+                }
+
             }
             post {
                 success {
@@ -82,6 +86,7 @@ pipeline {
         stage('Remove local images') {
 
             steps {
+              echo '=== Removing local images ==='
                 script{
                 sh '''
                 echo '=== Delete the local docker images ==='
