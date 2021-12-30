@@ -80,10 +80,12 @@ pipeline {
         stage('Remove local images') {
             echo 'Removed local images Successfully'
             steps {
+                sh '''
                 echo '=== Delete the local docker images ==='
-                sh final="${REGISTRY}/${IMG}"
-                sh("docker rmi -f $final")
-                sh("docker rmi -f $final$SHORT_COMMIT")
+                final="${REGISTRY}/${IMG}"
+                docker rmi -f $final
+                docker rmi -f $final$SHORT_COMMIT
+                    '''
             }
         }
     }
