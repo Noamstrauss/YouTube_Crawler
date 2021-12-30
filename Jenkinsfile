@@ -50,10 +50,9 @@ pipeline {
         stage('Test Application') {
             steps {
             echo '=== Testing App ==='
-
-                script {
-                sh echo 'Test Success'
-                }
+                sh '''
+                echo 'Test Success'
+                '''
 
             }
             post {
