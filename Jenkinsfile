@@ -36,10 +36,10 @@ pipeline {
                  '''
             }
         post {
-            success {
+           /* success {
                 echo 'Build Success '
                 emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
-            }
+            }*/
             failure {
                  echo 'Build Failed'
                 emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
@@ -56,9 +56,9 @@ pipeline {
 
             }
             post {
-                success {
+                /*success {
                     emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')
-                }
+                }*/
                 failure {
                     emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Failed')
                 }
