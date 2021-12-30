@@ -4,7 +4,7 @@ from User.get_user_age_seconds import get_user_age_seconds
 from termcolor import colored
 import time
 from config import *
-from loggetsetup import *
+#from loggetsetup import *
 
 #boto3 Clients
 client = boto3.client('iam')
@@ -150,14 +150,14 @@ def delete_outdated_usernames():
                     """
                 else:
                     print("There Are No Sub's")
-                    logger.info('No Subs')
+                    #logger.info('No Subs')
                     time.sleep(3.0)
                     print("There Are No Sub's")
                     time.sleep(3.0)
                     print("Only Admin User '{}' Is ACTIVE ".format(admin))
                     time.sleep(3.0)
-                    logger.info('----------------------')
-                    logger.info('End Log')
+                    #logger.info('----------------------')
+                    #logger.info('End Log')
 
 
         except KeyboardInterrupt:
