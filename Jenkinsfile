@@ -34,12 +34,13 @@ pipeline {
             printf "${green}Tagging Was Successful!"
             echo 'Tagging Was Successful!'
                  '''
+
             }
         post {
-           /* success {
+            success {
                 echo 'Build Success '
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
-            }*/
+               /* emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)*/
+            }
             failure {
                  echo 'Build Failed'
                 emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
@@ -56,9 +57,10 @@ pipeline {
 
             }
             post {
-                /*success {
-                    emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')
-                }*/
+                success {
+                  echo 'Test Success '
+                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')*/
+                }
                 failure {
                     emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Failed')
                 }
@@ -78,6 +80,10 @@ pipeline {
             }
 
          post {
+         success {
+                    echo 'Push Success '
+                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')*/
+                }
             failure {
                 echo 'Push Failed'
                 emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Push Failed', to: 'nds597@walla.com', body: 'Push Failed')
