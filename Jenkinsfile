@@ -101,6 +101,7 @@ pipeline {
                 echo '=== Delete the local docker images ==='
                 final="${REGISTRY}/${IMG}"
                 docker rmi -f $final
+                docker system prune -f
                 echo 'Removed local image Successfully'
                     '''
                     }
