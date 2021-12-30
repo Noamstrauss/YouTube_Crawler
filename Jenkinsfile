@@ -81,7 +81,7 @@ pipeline {
             echo 'Removed local images Successfully'
             steps {
                 echo '=== Delete the local docker images ==='
-                sh final='${REGISTRY}/${IMG}'
+                sh final="${REGISTRY}/${IMG}"
                 sh("docker rmi -f $final")
                 sh("docker rmi -f $final$SHORT_COMMIT")
             }
