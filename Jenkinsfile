@@ -30,6 +30,7 @@ pipeline {
             final="${REGISTRY}/${IMG}"
             docker tag $IMG $final
             printf "${green}Tagging Was Successful!"
+            echo 'Tagging Was Successful!'
                  '''
             }
         post {
@@ -45,9 +46,9 @@ pipeline {
 
         }
         stage('Test Application') {
-             echo 'Test Success'
+
             steps {
-                echo 'Test Success'
+                sh echo 'Test Success'
             }
             post {
                 success {
@@ -59,12 +60,13 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            echo 'Push Success'
+
             when { anyOf {branch "master";branch "dev"} }
             steps {
                 echo '=== Building Docker Image ==='
                 script {
                    sh docker push $REGISTRY/$IMG
+                   sh echo 'Push Success'
                 }
             }
 
@@ -78,14 +80,17 @@ pipeline {
      }
 
         stage('Remove local images') {
-            echo 'Removed local images Successfully'
+
             steps {
+                script{
                 sh '''
                 echo '=== Delete the local docker images ==='
                 final="${REGISTRY}/${IMG}"
                 docker rmi -f $final
                 docker rmi -f $final$SHORT_COMMIT
+                echo 'Removed local images Successfully'
                     '''
+                    }
             }
         }
     }
