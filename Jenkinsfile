@@ -49,7 +49,8 @@ pipeline {
         }
         stage('Test Application') {
             steps {
-                echo '=== Testing App ==='
+            echo '=== Testing App ==='
+
                 script {
                 sh echo 'Test Success'
                 }
