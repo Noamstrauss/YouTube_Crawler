@@ -86,17 +86,16 @@ pipeline {
 
      }
 
-        stage('Remove local images') {
+        stage('Cleanup local images') {
 
             steps {
-              echo '=== Removing local images ==='
+              echo '=== Cleaning local image ==='
                 script{
                 sh '''
                 echo '=== Delete the local docker images ==='
                 final="${REGISTRY}/${IMG}"
                 docker rmi -f $final
-                docker rmi -f $final$SHORT_COMMIT
-                echo 'Removed local images Successfully'
+                echo 'Removed local image Successfully'
                     '''
                     }
             }
