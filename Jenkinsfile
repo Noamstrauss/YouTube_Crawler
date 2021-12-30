@@ -18,8 +18,9 @@ pipeline {
     stages {
         stage('Build Docker Image') {
         when { anyOf {branch "master";branch "dev"} }
-             echo '=== Building Docker Image ==='
+
             steps {
+            echo '=== Building Docker Image ==='
                 sh '''
             printf "${yellow}Authenticating With ECS...."
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $REGISTRY
