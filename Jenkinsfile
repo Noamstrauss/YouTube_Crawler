@@ -70,8 +70,10 @@ pipeline {
             steps {
                 echo '=== Building Docker Image ==='
                 script {
-                   sh docker push $REGISTRY/$IMG
-                   sh echo 'Push Success '
+                sh '''
+                   docker push $REGISTRY/$IMG
+                   echo 'Push Success '
+                   '''
                 }
             }
 
