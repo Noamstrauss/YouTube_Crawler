@@ -27,3 +27,5 @@ if __name__ == "__main__":
     log.info('Info message, should appear in file and stdout.')
     log.warning('Warning message, should appear in file and stdout.')
     log.error('Error message, should appear in file and stdout.')
+
+log.debug('Debug message, should only appear in the file.')

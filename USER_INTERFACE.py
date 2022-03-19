@@ -4,7 +4,30 @@ from User.yes_or_no import yes_or_no
 from User.number_input import number_vali
 import time
 import pyfiglet
-from User.loggetsetup import *
+import logging
+import logging.handlers
+import sys
+
+if __name__ == "__main__":
+
+    # Change root logger level from WARNING (default) to NOTSET in order for all messages to be delegated.
+    logging.getLogger().setLevel(logging.NOTSET)
+
+    # Add stdout handler, with level INFO
+    console = logging.StreamHandler(sys.stdout)
+    console.setLevel(logging.INFO)
+    formater = logging.Formatter('%(name)-13s: %(levelname)-8s %(message)s')
+    console.setFormatter(formater)
+    logging.getLogger().addHandler(console)
+
+    # Add file rotating handler, with level DEBUG
+    rotatingHandler = logging.handlers.RotatingFileHandler(filename='user.log', maxBytes=1000, backupCount=5)
+    rotatingHandler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    rotatingHandler.setFormatter(formatter)
+    logging.getLogger().addHandler(rotatingHandler)
+
+    log = logging.getLogger("app." + __name__)
 
 
 # App Welcome Sign
@@ -23,7 +46,7 @@ while play:
 
         # Creating a username for Youtube Crawler
         create_user(username)
-        logger.info('User: %s Created!',username)
+        log.info('User: %s Created!',username)
 
         # Greeting The New User
         time.sleep(1.2)
@@ -49,7 +72,7 @@ while play:
         # Calling Youtube With search_str,search_results,username
         upload(username, search_str, number)
 
-        logger.info('Downloded Successfully %s ',search_str)
+        log.info('Downloded Successfully %s ',search_str)
 
         # Asking User If To Create Another User
         print("------------------------------------------------------------")
@@ -74,8 +97,8 @@ print((colored('Thank You for Using Youtube Crawler By Noam \U0001f60d', 'blue',
 print("------------------------------------------------------------")
 print("See You Next Time \U0001f600")
 print("------------------------------------------------------------")
-logger.info('----------------------')
-logger.info('End Log')
+log.info('----------------------')
+log.info('End Log')
 exit(0)
 
 
