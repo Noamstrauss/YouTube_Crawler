@@ -1,5 +1,5 @@
 import boto3
-from config import *
+from config.config import *
 client = boto3.client('iam')
 username=input("Enter UserName:")
 

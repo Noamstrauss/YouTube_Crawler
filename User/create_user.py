@@ -2,8 +2,24 @@ import boto3
 from botocore.exceptions import ClientError
 from termcolor import colored
 import time
-from config import *
-client = boto3.client('iam')
+from config.config import *
+from logger.user_logger import *
+
+# AWS_PROFILE Config
+custom_profile = bool(False)
+if AWS_PROFILE != "":
+    custom_profile = True
+else:
+    custom_profile = False
+
+if custom_profile:
+    session = boto3.session.Session(profile_name=AWS_PROFILE)
+
+    client = session.client('iam')
+else:
+    client = boto3.client('iam')
+
+
 
 # An Function That Creates An User In IAM
 def create_user(username):
@@ -23,19 +39,19 @@ def create_user(username):
             )
             time.sleep(1.2)
             print("------------------------------------------------------------")
-            print((colored("Successfully Created User '{}'".format(username), 'green')))
+            log.info((colored("Successfully Created User '{}'".format(username), 'green')))
             print("------------------------------------------------------------")
 
             break
 
         except ClientError as e:
             if e.response['Error']['Code'] == 'EntityAlreadyExists':
-                print(colored('User already exists', 'red'))
-                print("Please Enter A Different User Name")
+                log.error(colored('User already exists', 'red'))
+                log.info("Please Enter A Different User Name")
                 username = input("Enter Username: ")
                 continue
             else:
-                print("Unexpected error: %s" % e)
+                log.error("Unexpected error: %s" % e)
                 username = input("Enter Username: ")
                 continue
 
@@ -45,4 +61,4 @@ def create_user(username):
 
 
 if __name__ == '__main__':
-    create_user("test")
+    create_user("test2")

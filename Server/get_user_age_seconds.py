@@ -1,8 +1,22 @@
 import boto3
 from datetime import datetime, timezone
 from termcolor import colored
-from config import *
-client = boto3.client('iam')
+from config.config import *
+from logger.server_logger import *
+
+# AWS_PROFILE Config
+custom_profile = bool(False)
+if AWS_PROFILE != "":
+    custom_profile = True
+else:
+    custom_profile = False
+
+if custom_profile:
+    session = boto3.session.Session(profile_name=AWS_PROFILE)
+
+    client = session.client('iam')
+else:
+    client = boto3.client('iam')
 
 # A Function That Will Check Users Age to Send Age To delete_outdated_usernames Function
 def get_user_age_seconds(username):
@@ -19,7 +33,7 @@ def get_user_age_seconds(username):
 
 # Printing User Age To Server
     if username != admin:
-        print("User ' {} ' is active (sec):".format(username),
+        log.info("User ' {} ' is active (sec):".format(username),
               (datetime.now(timezone.utc) - user_create_date).total_seconds())
     else:
         pass
@@ -33,7 +47,7 @@ def get_user_age_seconds(username):
     if user_seconds > max_user_age_seconds and username !=(admin):
         expired_sub = True
 
-        print("User  ' {} ' is ".format(username),(colored('Expired', 'red')))
+        log.info("User  ' {} ' is ".format(username),(colored('Expired', 'red')))
         print("--------------------------------------------")
 
 
