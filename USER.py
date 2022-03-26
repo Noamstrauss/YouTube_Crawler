@@ -1,7 +1,7 @@
 from User.create_user import create_user
 from termcolor import colored
-from User.yes_or_no import yes_or_no
-from User.number_input import number_vali
+from validation.yes_or_no import yes_or_no
+from validation.number_input import number_vali
 import time
 import pyfiglet
 from logger.user_logger import *
@@ -74,4 +74,6 @@ print((colored('Thank You for Using Youtube Crawler By Noam \U0001f60d', 'blue',
 print("------------------------------------------------------------")
 print("See You Next Time \U0001f600")
 print("------------------------------------------------------------")
+log.info('End Log')
+log.info('----------------------')
 exit(0)

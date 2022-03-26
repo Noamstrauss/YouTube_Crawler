@@ -11,7 +11,7 @@ console.setFormatter(formater)
 logging.getLogger().addHandler(console)
 
 # Add file rotating handler, with level DEBUG
-rotatingHandler = logging.handlers.RotatingFileHandler(filename='server.log', backupCount=5)
+rotatingHandler = logging.handlers.RotatingFileHandler(filename='logs/server.log', backupCount=5)
 rotatingHandler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 rotatingHandler.setFormatter(formatter)
