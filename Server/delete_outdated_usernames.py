@@ -27,7 +27,7 @@ else:
 policy = iam.Policy(permission)
 
 
-
+log.info('Start Log')
 # Deletes users older than max_user_age_seconds
 def delete_outdated_usernames():
 
@@ -40,7 +40,6 @@ def delete_outdated_usernames():
             users_d = (response['Users'])
             for x in range(len(users_d)):
                 fo_user = users_d[x]['UserName']
-                log.info('Start Log')
                 expired = get_user_age_seconds(fo_user)
                 if expired == True and fo_user != admin:
 
@@ -164,14 +163,14 @@ def delete_outdated_usernames():
                     log.info('No Subs')
                     time.sleep(1.5)
                     # print("There Are No Sub's")
-                    print("Only Admin User '{}' Is ACTIVE ".format(admin))
+                    print((colored("Only Admin User '%s' is active" % admin, 'yellow')))
                     time.sleep(1.5)
-                    log.info('End Log')
-                    log.info('----------------------')
                     time.sleep(1.5)
 
 
         except KeyboardInterrupt:
+            log.info('End Log')
+            log.info('----------------------')
             print('Interrupted!')
             exit(0)
 

@@ -65,6 +65,8 @@ while play:
 
     except KeyboardInterrupt:
         print('Interrupted!')
+        log.info('End Log')
+        log.info('----------------------')
 
 # Printing A User A Thank You Note
 print("------------------------------------------------------------")
@@ -72,6 +74,4 @@ print((colored('Thank You for Using Youtube Crawler By Noam \U0001f60d', 'blue',
 print("------------------------------------------------------------")
 print("See You Next Time \U0001f600")
 print("------------------------------------------------------------")
-log.info('End Log')
-log.info('----------------------')
 exit(0)
