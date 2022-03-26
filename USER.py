@@ -44,7 +44,7 @@ while play:
         time.sleep(1.2)
 
         # Importing Youtube Downloader And Uploader To AWS S3 Bucket
-        from User.youtube_crawler import upload
+        from User.youtube import upload
 
         # Calling Youtube With search_str,search_results,username
         upload(username, search_str, number)

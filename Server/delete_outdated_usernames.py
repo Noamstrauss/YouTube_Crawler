@@ -40,12 +40,12 @@ def delete_outdated_usernames():
             users_d = (response['Users'])
             for x in range(len(users_d)):
                 fo_user = users_d[x]['UserName']
+                log.info('Start Log')
                 expired = get_user_age_seconds(fo_user)
                 if expired == True and fo_user != admin:
 
                     # Trying To Delete Users Files From S3 Bucket After He Expired
                     try:
-                        log.info('Start Log')
                         # print((colored("Trying To Delete Users '{}' Files...".format(fo_user), 'yellow')))
                         path = fo_user + "/"
                         bucket1 = s3.Bucket(bucket)
@@ -159,19 +159,20 @@ def delete_outdated_usernames():
                     """
                 else:
                     # print("There Are No Sub's")
+                    time.sleep(1.5)
                     log.info('No Subs')
-                    time.sleep(3.0)
+                    time.sleep(1.5)
                     # print("There Are No Sub's")
-                    time.sleep(3.0)
-                    # print("Only Admin User '{}' Is ACTIVE ".format(admin))
-                    time.sleep(3.0)
+                    print("Only Admin User '{}' Is ACTIVE ".format(admin))
+                    time.sleep(1.5)
                     log.info('End Log')
                     log.info('----------------------')
+                    time.sleep(1.5)
 
 
         except KeyboardInterrupt:
             print('Interrupted!')
-            exit(1)
+            exit(0)
 
 
 
