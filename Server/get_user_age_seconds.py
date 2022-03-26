@@ -32,13 +32,11 @@ def get_user_age_seconds(username):
 
 
 # Printing User Age To Server
-    if username != admin:
-        print("User ' {} ' is active (sec):".format(username),
-              (datetime.now(timezone.utc) - user_create_date).total_seconds())
-    else:
-        pass
-
-
+#     if username != admin:
+#         print("User ' {} ' is active (sec):".format(username),
+#               (datetime.now(timezone.utc) - user_create_date).total_seconds())
+#     else:
+#         pass
 
 # Calculating Users Age in Seconds
     user_seconds = (datetime.now(timezone.utc) - user_create_date).total_seconds()
@@ -48,7 +46,6 @@ def get_user_age_seconds(username):
         expired_sub = True
 
         log.info((colored("User %s is expired " % username, 'red')))
-        print("--------------------------------------------")
 
 
     else:

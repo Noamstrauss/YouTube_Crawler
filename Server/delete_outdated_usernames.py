@@ -51,7 +51,7 @@ def delete_outdated_usernames():
                         bucket1 = s3.Bucket(bucket)
                         bucket1.objects.filter(Prefix=path).delete()
                         # print((colored("Deleted Successfully '{}' Files".format(fo_user), 'green')))
-                        log.info('Deleted %s Files Successfully' % fo_user)
+                        log.info((colored("Deleted %s Files Successfully" % fo_user, 'green')))
                         # print("--------------------------------------------")
                         time.sleep(2)
                     except ClientError as e:
@@ -64,14 +64,14 @@ def delete_outdated_usernames():
                         # print((colored("Trying To Detach User '{} ' From Policy...".format(fo_user), 'yellow')))
                         response_policy = policy.detach_user(
                             UserName=fo_user)
-                        log.info('Detached User %s Successfully' % fo_user)
+                        log.info((colored("Detached User %s Successfully" % fo_user, 'green')))
                         # print((colored("Successfully Detached '{}' From Policy".format(fo_user), 'green')))
                         # print("--------------------------------------------")
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException :
                         # print('User %s Policy Was Not Found' % fo_user)
-                        log.info('User %s Policy Was Not Found' % fo_user)
+                        log.info((colored("User %s Policy Was Not Found" % fo_user, 'yellow')))
                         # print("--------------------------------------------")
                         time.sleep(2)
 
@@ -81,14 +81,14 @@ def delete_outdated_usernames():
                         #                'yellow')))
                         response = client.delete_login_profile(
                             UserName=fo_user)
-                        log.info('Successfully Deleted  %s Login Profile' % fo_user)
+                        log.info((colored("Successfully Deleted  %s Login Profile" % fo_user, 'green')))
                         # print((colored("Successfully Deleted '{}' Login Profile".format(fo_user), 'green')))
                         # print("--------------------------------------------")
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException:
                         # print('Login Profile Not Found')
-                        log.info('Login Profile  Not Found')
+                        log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
                         # print("--------------------------------------------")
                         time.sleep(2)
 
@@ -99,14 +99,14 @@ def delete_outdated_usernames():
                         response = client.remove_user_from_group(
                             GroupName=group,
                             UserName=fo_user)
-                        log.info('Successfully Removed  %s From Group' % fo_user)
+                        log.info((colored("Successfully Removed %s From Group" % fo_user, 'green')))
                         # print((colored("Successfully Removed '{}' From Group".format(fo_user), 'green')))
                         # print("--------------------------------------------")
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException:
                         # print('Login Profile %s Not Found' % fo_user)
-                        log.info('Login Profile %s Not Found' % fo_user)
+                        log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
                         # print("--------------------------------------------")
                         time.sleep(2)
 
@@ -128,7 +128,8 @@ def delete_outdated_usernames():
                             UserName=fo_user)
                         time.sleep(2)
                         # print((colored("Successfully Deleted '{}'".format(fo_user), 'green', attrs=['bold'],)))
-                        log.info('Successfully Deleted User %s' % fo_user)
+                        log.info((colored("Successfully Deleted User %s" % fo_user, 'green')))
+                        log.info("----------------------")
                         # print("--------------------------------------------",)
                         # print("\n")
                         time.sleep(2)
