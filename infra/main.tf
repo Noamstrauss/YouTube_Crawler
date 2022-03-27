@@ -1,52 +1,63 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.27"
+resource "kubernetes_deployment" "yt_deployment_user" {
+  metadata {
+    namespace = "noams"
+    labels = {
+      name = "noams-youtube-user"
     }
   }
 
-  required_version = ">= 0.14.9"
-}
+  spec {
+    replicas = 2
 
-provider "aws" {
-  profile = "default"
-  region  = "us-east-2"
-}
+    selector {
+      match_labels = {
+         name = "noams-youtube-user"
+      }
+    }
 
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "2.21.0"
+    template {
+      metadata {
+        labels = {
+         name = "noams-youtube-user"
+        }
+      }
 
-  name = var.vpc_name
-  cidr = var.vpc_cidr
+      spec {
+        container {
+          image = var.imagetag
+          name  = "youtube-user"
 
-  azs             = var.vpc_azs
-  private_subnets = var.vpc_private_subnets
-  public_subnets  = var.vpc_public_subnets
-
-  enable_nat_gateway = var.vpc_enable_nat_gateway
-
-  tags = var.vpc_tags
-}
-
-
-resource "aws_instance" "Terraform-Test-ec2" {
-  ami           = "ami-002068ed284fb165b"
-  instance_type = "t2.micro"
-
-  network_interface {
-  network_interface_id = aws_network_interface.foo.id
-  device_index         = 0
+          resources {
+            limits = {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
+          }
+        }
+      }
+    }
   }
-
-  
-
-  tags = {
-    Name = "ExampleAppServerInstance"
-  }
-
-
-
 }
 
+
+resource "kubernetes_service" "yt_service_user" {
+  metadata {
+    name = "terraform-example"
+  }
+  spec {
+    selector = {
+      app = kubernetes_deployment.yt_deployment_user.metadata.labels.name
+    }
+    session_affinity = "ClientIP"
+    port {
+      port        = 8080
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
+  }
+}

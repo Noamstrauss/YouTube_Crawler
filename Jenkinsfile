@@ -4,16 +4,13 @@ pipeline {
      environment {
        REGISTRY = "955114013936.dkr.ecr.us-east-2.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
+       FINALTAG=$REGISTRY/$IMG
        red='\033[0;31m'
        green='\033[0;32m'
        yellow='\033[0;33m'
        def emailBody = '${JELLY_SCRIPT,template="html_gmail"}'
        def emailSubject = "${env.JOB_NAME} - Build# ${env.BUILD_NUMBER}"
        }
-
-
-
-
 
     stages {
         stage('Build Docker Image') {
@@ -73,7 +70,7 @@ pipeline {
                 echo '=== Building Docker Image ==='
                 script {
                 sh '''
-                   docker push $REGISTRY/$IMG
+                   docker push $FINALTAG
                    echo 'Push Success '
                    '''
                 }
@@ -107,5 +104,19 @@ pipeline {
                     }
             }
         }
+        stage('Deployment') {
+
+            steps {
+              echo '=== Starting deployment ==='
+                script{
+                sh '''
+                terraform apply \
+                -var 'imagetag=$(FINALTAG)'
+                echo 'Deployment was success'
+                    '''
+                    }
+    }
+}
+
     }
 }

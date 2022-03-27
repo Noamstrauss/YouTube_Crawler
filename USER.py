@@ -5,6 +5,7 @@ from validation.number_input import number_vali
 import time
 import pyfiglet
 from logger.user_logger import *
+from User.youtube import upload
 
 # App Welcome Sign
 welcome = pyfiglet.figlet_format("Youtube Crawler")
@@ -17,6 +18,7 @@ time.sleep(1.2)
 play = True
 while play:
     try:
+        log.info('----------------------')
         log.info('Start Log')
         # Asking for Username and Creating a User
         username = input("Please Enter A Username: ")
@@ -43,8 +45,6 @@ while play:
         print("------------------------------------------------------------")
         time.sleep(1.2)
 
-        # Importing Youtube Downloader And Uploader To AWS S3 Bucket
-        from User.youtube import upload
 
         # Calling Youtube With search_str,search_results,username
         upload(username, search_str, number)
@@ -64,9 +64,9 @@ while play:
 
 
     except KeyboardInterrupt:
-        print('Interrupted!')
         log.info('End Log')
-        log.info('----------------------')
+        print((colored("Interrupted!", 'yellow')))
+
 
 # Printing A User A Thank You Note
 print("------------------------------------------------------------")
