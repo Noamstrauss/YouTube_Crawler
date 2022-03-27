@@ -13,14 +13,14 @@
 
 
 #TODO Define Policy To set Users Permissions
-permission = 'arn:aws:iam::955114013936:policy/S3VideoReader'
+permission = 'arn:aws:iam::352708296901:policy/S3VideoReader'
 
 # TODO Define An Admin User That Will Not Be Deleted
-admin = "noamsint"
+admin = "aws35"
 
 
 #TODO Define Bucket Name to upload Videos
-bucket ='youtube-crawler-bucket'
+bucket ='youtube-crawler'
 
 #TODO Define User Maximun Subscriber age
 max_user_age_seconds = (2.0)
