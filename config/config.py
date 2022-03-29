@@ -30,7 +30,7 @@ max_user_age_seconds = (2.0)
 group = 'Youtube_Sub_Group'
 
 #TODO If you are using a custom AWS_Profile enter it bellow
-AWS_PROFILE = "oldint"
+AWS_PROFILE = ""
 
 
 

@@ -5,7 +5,7 @@ def number_vali(question):
        answer = int(input(question))
     except ValueError:
        print("Not an Number! Try again.")
-       continue
+
     else:
        return answer
 

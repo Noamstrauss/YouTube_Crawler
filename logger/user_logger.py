@@ -11,10 +11,10 @@ console.setFormatter(formater)
 logging.getLogger().addHandler(console)
 
 # Add file rotating handler, with level DEBUG
-rotatingHandler = logging.handlers.RotatingFileHandler(filename='logs/user.log', backupCount=5)
-rotatingHandler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-rotatingHandler.setFormatter(formatter)
-logging.getLogger().addHandler(rotatingHandler)
+# rotatingHandler = logging.handlers.RotatingFileHandler(filename='logger/user.log', backupCount=5)
+# rotatingHandler.setLevel(logging.INFO)
+# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# rotatingHandler.setFormatter(formatter)
+# logging.getLogger().addHandler(rotatingHandler)
 
 log = logging.getLogger("app." + __name__)
