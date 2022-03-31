@@ -3,20 +3,20 @@ from datetime import datetime, timezone
 from termcolor import colored
 from config.config import *
 from logger.server_logger import *
-
+client = boto3.client('iam')
 # AWS_PROFILE Config
-custom_profile = bool(False)
-if AWS_PROFILE != "":
-    custom_profile = True
-else:
-    custom_profile = False
-
-if custom_profile:
-    session = boto3.session.Session(profile_name=AWS_PROFILE)
-
-    client = session.client('iam')
-else:
-    client = boto3.client('iam')
+# custom_profile = bool(False)
+# if AWS_PROFILE != "":
+#     custom_profile = True
+# else:
+#     custom_profile = False
+#
+# if custom_profile:
+#     session = boto3.session.Session(profile_name=AWS_PROFILE)
+#
+#     client = session.client('iam')
+# else:
+#     client = boto3.client('iam')
 
 # A Function That Will Check Users Age to Send Age To delete_outdated_usernames Function
 def get_user_age_seconds(username):

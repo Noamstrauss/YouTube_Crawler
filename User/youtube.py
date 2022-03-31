@@ -7,19 +7,20 @@ from logger.user_logger import *
 #ENV VARS
 YDL_OPTIONS = {'format': 'bestvideo', 'noplaylist':'True'}
 custom_profile = bool(False)
+s3_client = boto3.client('s3')
 
 #AWS_PROFILE CONFIG
 
-if AWS_PROFILE != "":
-    custom_profile = True
-else:
-    custom_profile = False
-
-if custom_profile:
-    session = boto3.session.Session(profile_name=AWS_PROFILE)
-    s3_client = session.client('s3')
-else:
-    s3_client = boto3.client('s3')
+# if AWS_PROFILE != "":
+#     custom_profile = True
+# else:
+#     custom_profile = False
+#
+# if custom_profile:
+#     session = boto3.session.Session(profile_name=AWS_PROFILE)
+#     s3_client = session.client('s3')
+# else:
+#     s3_client = boto3.client('s3')
 
 
 # Youtube-DL Serach Function

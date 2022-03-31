@@ -5,24 +5,26 @@ from termcolor import colored
 import time
 from config.config import *
 from logger.server_logger import *
-
-#AWS_PROFILE CONFIG
-custom_profile = bool(False)
-if AWS_PROFILE != "":
-    custom_profile = True
-else:
-    custom_profile = False
-
-if custom_profile:
-    session = boto3.session.Session(profile_name=AWS_PROFILE)
-
-    client = session.client('iam')
-    s3 = session.resource('s3')
-    iam = session.resource('iam')
-else:
-    client = boto3.client('iam')
-    s3 = boto3.resource('s3')
-    iam = boto3.resource('iam')
+client = boto3.client('iam')
+s3 = boto3.resource('s3')
+iam = boto3.resource('iam')
+# #AWS_PROFILE CONFIG
+# custom_profile = bool(False)
+# if AWS_PROFILE != "":
+#     custom_profile = True
+# else:
+#     custom_profile = False
+#
+# if custom_profile:
+#     session = boto3.session.Session(profile_name=AWS_PROFILE)
+#
+#     client = session.client('iam')
+#     s3 = session.resource('s3')
+#     iam = session.resource('iam')
+# else:
+#     client = boto3.client('iam')
+#     s3 = boto3.resource('s3')
+#     iam = boto3.resource('iam')
 
 policy = iam.Policy(permission)
 

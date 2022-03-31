@@ -15,6 +15,7 @@
 #TODO Define Policy To set Users Permissions
 permission = 'arn:aws:iam::352708296901:policy/S3VideoReader'
 
+
 # TODO Define An Admin User That Will Not Be Deleted
 admin = "aws35"
 
