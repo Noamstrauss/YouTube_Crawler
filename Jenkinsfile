@@ -104,28 +104,6 @@ pipeline {
                     }
             }
         }
-       stage('Terraform destroy') {
-
-            steps {
-              echo '=== Running Terraform Destroy ==='
-                script{
-                sh '''
-                cd infra/grafana
-                terraform destroy -var-file=vars.tfvars -auto-approve
-                    '''
-                    }
-    }
-             post {
-         success {
-                echo 'Terraform Destroy was success'
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Terraform Destroy failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Destroy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Destroy failed')
-        }
-      }
-}
 
        stage('Terraform Init') {
 
@@ -149,6 +127,30 @@ pipeline {
         }
       }
 }
+
+       stage('Terraform destroy') {
+
+            steps {
+              echo '=== Running Terraform Destroy ==='
+                script{
+                sh '''
+                cd infra/grafana
+                terraform destroy -var-file=vars.tfvars -auto-approve
+                    '''
+                    }
+    }
+             post {
+         success {
+                echo 'Terraform Destroy was success'
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Terraform Destroy failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Destroy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Destroy failed')
+        }
+      }
+}
+
 
        stage('Terraform Plan') {
 
