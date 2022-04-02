@@ -4,7 +4,7 @@ pipeline {
      environment {
        REGISTRY = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
-       FINALTAG=${REGISTRY}/${IMG}
+       FINALTAG="${REGISTRY}/${IMG}"
        REGION="eu-north-1"
        red='\033[0;31m'
        green='\033[0;32m'
