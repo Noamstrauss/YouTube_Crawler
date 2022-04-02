@@ -144,12 +144,12 @@ pipeline {
         stage('Terraform Apply') {
 
             steps {
-              echo '=== Starting deployment ==='
+              echo '=== Starting Terraform Apply ==='
                 script{
                 sh '''
                 cd infra/grafana
+                aws eks update-kubeconfig --region eu-north-1 --name devops-apr21-k8s --kubeconfig .kube
                 terraform apply -var-file=vars.tfvars -auto-approve
-                echo 'Deployment was success'
                     '''
                     }
     }
