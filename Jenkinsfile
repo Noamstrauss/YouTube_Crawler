@@ -27,8 +27,7 @@ pipeline {
             docker build -t $IMG .
             printf "${green}Build Was Successful!"
             printf "${yellow}Tagging Docker Image...."
-            final= ${REGISTRY}/${IMG}
-            docker tag $IMG $final
+            docker tag $IMG $FINALTAG
             printf "${green}Tagging Was Successful!"
             echo 'Tagging Was Successful!'
                  '''
