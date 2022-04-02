@@ -110,7 +110,7 @@ pipeline {
               echo '=== Starting deployment ==='
                 script{
                 sh '''
-                cd infra\grafana
+                cd infra/grafana
                 terraform apply -var-file=vars.tfvars -auto-approve
                 echo 'Deployment was success'
                     '''
