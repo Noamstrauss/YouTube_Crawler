@@ -5,6 +5,7 @@ pipeline {
        REGISTRY = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
        FINALTAG='${REGISTRY}/${IMG}'
+       REGION="eu-north-1"
        red='\033[0;31m'
        green='\033[0;32m'
        yellow='\033[0;33m'
@@ -20,7 +21,7 @@ pipeline {
             echo '=== Building Docker Image ==='
                 sh '''
             printf "${yellow}Authenticating With ECS...."
-            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $REGISTRY
+            aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
             printf "${green}Authenticating Was Successful! "
             printf "${yellow}Building Docker...."
             docker build -t $IMG .
@@ -78,8 +79,8 @@ pipeline {
 
          post {
          success {
-                    echo 'Push Success '
-                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                echo 'Push Success '
+                /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
                 echo 'Push Failed'
@@ -118,8 +119,8 @@ pipeline {
     }
              post {
          success {
-                    echo 'Grafana Deploy was successful '
-                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                echo 'Grafana Deploy was successful '
+                /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
                 echo 'Grafana Deployment failed'
