@@ -36,11 +36,11 @@ pipeline {
         post {
             success {
                 echo 'Build Success '
-               /* emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)*/
+               /* emailext(mimeType: 'text/html', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)*/
             }
             failure {
                  echo 'Build Failed'
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)
+                emailext(mimeType: 'text/html', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)
             }
         }
 
@@ -56,10 +56,10 @@ pipeline {
             post {
                 success {
                   echo 'Test Success '
-                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                    /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
                 failure {
-                    emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Failed')
+                    emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Failed')
                 }
             }
         }
@@ -79,11 +79,11 @@ pipeline {
          post {
          success {
                 echo 'Push Success '
-                /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
                 echo 'Push Failed'
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Push Failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Push Failed')
+                emailext(mimeType: 'text/html', subject: emailSubject+'Push Failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Push Failed')
         }
       }
 
@@ -104,7 +104,44 @@ pipeline {
                     }
             }
         }
-        stage('Grafana Deployment') {
+       stage('Terraform Init') {
+
+            steps {
+              echo '=== Running Terraform Init ==='
+                script{
+                sh '''
+                cd infra/grafana
+                terraform init
+                    '''
+                    }
+    }
+             post {
+         success {
+                echo 'Terraform Init was success'
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Terraform Init failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Init', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Init')
+        }
+      }
+}
+
+       stage('Terraform Plan') {
+
+            steps {
+              echo '=== Running Terraform Plan ==='
+                script{
+                sh '''
+                cd infra/grafana
+                terraform plan -var-file=vars.tfvars
+                    '''
+                input "Proceed to apply stage?"
+                    }
+    }
+}
+
+        stage('Terraform Apply') {
 
             steps {
               echo '=== Starting deployment ==='
@@ -118,12 +155,12 @@ pipeline {
     }
              post {
          success {
-                echo 'Grafana Deploy was successful '
-                /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                echo 'Terraform Apply was successful '
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Grafana Deployment failed'
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'grafana deploy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'grafana deploy failed')
+                echo 'Terraform Apply failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Apply failed')
         }
       }
 }
