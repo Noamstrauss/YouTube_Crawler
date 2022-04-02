@@ -105,7 +105,34 @@ pipeline {
             }
         }
 
-       stage('Terraform Init') {
+       stage('Terraform state Infrastructure') {
+
+            steps {
+              echo '=== Running Terraform Init ==='
+                script{
+                sh '''
+                cd infra/s3
+                terraform init
+                echo '=== Running Terraform plan ==='
+                terraform plan
+                echo '=== Running Terraform apply ==='
+                terraform apply -auto-approve
+                    '''
+                    }
+    }
+             post {
+         success {
+                echo 'Terraform state was successfully set'
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Terraform state infrastructure failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform state infrastructure failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform state infrastructure failed')
+        }
+      }
+}
+
+       stage('Terraform init ') {
 
             steps {
               echo '=== Running Terraform Init ==='
@@ -118,38 +145,38 @@ pipeline {
     }
              post {
          success {
-                echo 'Terraform Init was success'
+                echo 'Terraform init ran successfully'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Terraform Init failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Init', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Init')
+                echo 'Terraform init failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform init failed')
         }
       }
 }
 
-       stage('Terraform destroy') {
-
-            steps {
-              echo '=== Running Terraform Destroy ==='
-                script{
-                sh '''
-                cd infra/grafana
-                terraform destroy -var-file=vars.tfvars -auto-approve
-                    '''
-                    }
-    }
-             post {
-         success {
-                echo 'Terraform Destroy was success'
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Terraform Destroy failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Destroy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Destroy failed')
-        }
-      }
-}
+//       stage('Terraform destroy') {
+//
+//            steps {
+//              echo '=== Running Terraform Destroy ==='
+//                script{
+//                sh '''
+//                cd infra/grafana
+//                terraform destroy -var-file=vars.tfvars -auto-approve
+//                    '''
+//                    }
+//    }
+//             post {
+//         success {
+//                echo 'Terraform Destroy was success'
+//                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+//                }
+//            failure {
+//                echo 'Terraform Destroy failed'
+//                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Destroy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Destroy failed')
+//        }
+//      }
+//}
 
 
        stage('Terraform Plan') {
