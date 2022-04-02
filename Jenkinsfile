@@ -104,18 +104,28 @@ pipeline {
                     }
             }
         }
-        stage('Deployment') {
+        stage('Grafana Deployment') {
 
             steps {
               echo '=== Starting deployment ==='
                 script{
                 sh '''
-                terraform apply \
-                -var 'imagetag=$(FINALTAG)'
+                cd infra\grafana
+                terraform apply -var-file=vars.tfvars -auto-approve
                 echo 'Deployment was success'
                     '''
                     }
     }
+             post {
+         success {
+                    echo 'Grafana Deploy was successful '
+                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Grafana Deployment failed'
+                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'grafana deploy failed', to: 'nds597@walla.com', body: 'grafana deploy failed')
+        }
+      }
 }
 
     }
