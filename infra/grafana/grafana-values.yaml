@@ -1,0 +1,69 @@
+ingress:
+  enabled: true
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  ingressClassName: nginx
+  # Values can be templated
+  annotations:
+#     kubernetes.io/ingress.class: nginx
+     kubernetes.io/tls-acme: "true"
+  labels: {}
+  path: /
+
+  # pathType is only for k8s >= 1.1=
+  pathType: Prefix
+
+  hosts:
+    - ${GRAFANA_HOST}
+
+
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: gp2
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # selectorLabels: {}
+  # subPath: ""
+  # existingClaim:
+
+  ## If persistence is not enabled, this allows to mount the
+  ## local storage in-memory to improve performance
+  ##
+  inMemory:
+    enabled: false
+    ## The maximum usage on memory medium EmptyDir would be
+    ## the minimum value between the SizeLimit specified
+    ## here and the sum of memory limits of all containers in a pod
+    ##
+    # sizeLimit: 300Mi
+
+adminUser: admin
+adminPassword: password
+
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+#    - name: CloudWatch
+#      type: cloudwatch
+#      access: proxy
+#      uid: cloudwatch
+#      editable: false
+#      jsonData:
+#        authType: default
+#        defaultRegion: eu-north-1
+    - name: elasticsearch
+      type: elasticsearch
+      access: proxy
+      database: ${INDEX_NAME}
+      url: http://elasticsearch-master.default.svc.cluster.local:9200
+      isDefault: true
+      jsonData:
+        timeField: "@timestamp"
+        esVersion: ${ELASTIC_VER}

@@ -2,7 +2,7 @@ resource "kubernetes_deployment" "yt_deployment_user" {
   metadata {
     namespace = "noams"
     labels = {
-      name = "noams-youtube-user"
+      name = "youtube-ui"
     }
   }
 
@@ -11,21 +11,21 @@ resource "kubernetes_deployment" "yt_deployment_user" {
 
     selector {
       match_labels = {
-         name = "noams-youtube-user"
+         name = "youtube-ui"
       }
     }
 
     template {
       metadata {
         labels = {
-         name = "noams-youtube-user"
+         name = "youtube-ui"
         }
       }
 
       spec {
         container {
           image = var.imagetag
-          name  = "youtube-user"
+          name  = "youtube-ui"
 
           resources {
             limits = {
