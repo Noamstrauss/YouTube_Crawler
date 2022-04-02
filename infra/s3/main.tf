@@ -1,16 +1,16 @@
 #-------------------------------------------------------
 #KMS state bucket
 #-------------------------------------------------------
-resource "aws_kms_key" "terraform-bucket-key" {
- description             = "This key is used to encrypt bucket objects"
- deletion_window_in_days = 10
- enable_key_rotation     = true
-}
-
-resource "aws_kms_alias" "key-alias" {
- name          = "alias/terraform-bucket-key1"
- target_key_id = aws_kms_key.terraform-bucket-key.key_id
-}
+#resource "aws_kms_key" "terraform-bucket-key" {
+# description             = "This key is used to encrypt bucket objects"
+# deletion_window_in_days = 10
+# enable_key_rotation     = true
+#}
+#
+#resource "aws_kms_alias" "key-alias" {
+# name          = "alias/terraform-bucket-key1"
+# target_key_id = aws_kms_key.terraform-bucket-key.key_id
+#}
 #-------------------------------------------------------
 #s3 state bucket
 #-------------------------------------------------------
@@ -22,15 +22,6 @@ resource "aws_s3_bucket" "tf_state_bucket" {
   }
   versioning {
    enabled = true
- }
-
- server_side_encryption_configuration {
-   rule {
-     apply_server_side_encryption_by_default {
-       kms_master_key_id = aws_kms_key.terraform-bucket-key.arn
-       sse_algorithm     = "aws:kms"
-     }
-   }
  }
 }
 
