@@ -16,13 +16,9 @@
 #-------------------------------------------------------
 resource "aws_s3_bucket" "tf_state_bucket" {
   bucket = "youtube-tf-state-files"
-  acl    = "private"
   tags = {
     Name        = "Youtube_tf_state_bucket"
   }
-  versioning {
-   enabled = true
- }
 }
 
 resource "aws_s3_bucket_public_access_block" "block" {
