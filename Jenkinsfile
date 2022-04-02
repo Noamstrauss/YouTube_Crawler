@@ -111,7 +111,7 @@ pipeline {
                 script{
                 sh '''
                 cd infra/grafana
-                terraform destroy -var-file=vars.tfvars -auto-apply
+                terraform destroy -var-file=vars.tfvars -auto-approve
                     '''
                     }
     }
