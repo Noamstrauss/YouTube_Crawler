@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-       REGISTRY = "955114013936.dkr.ecr.us-east-2.amazonaws.com"
+       REGISTRY = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
        FINALTAG='${REGISTRY}/${IMG}'
        red='\033[0;31m'
