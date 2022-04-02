@@ -36,11 +36,11 @@ pipeline {
         post {
             success {
                 echo 'Build Success '
-               /* emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)*/
+               /* emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)*/
             }
             failure {
                  echo 'Build Failed'
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, to: 'nds597@walla.com', body: emailBody)
+                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)
             }
         }
 
@@ -56,10 +56,10 @@ pipeline {
             post {
                 success {
                   echo 'Test Success '
-                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')*/
+                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
                 failure {
-                    emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Failed')
+                    emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Failed')
                 }
             }
         }
@@ -79,11 +79,11 @@ pipeline {
          post {
          success {
                     echo 'Push Success '
-                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')*/
+                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
                 echo 'Push Failed'
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Push Failed', to: 'nds597@walla.com', body: 'Push Failed')
+                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Push Failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Push Failed')
         }
       }
 
@@ -119,11 +119,11 @@ pipeline {
              post {
          success {
                     echo 'Grafana Deploy was successful '
-                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', to: 'nds597@walla.com', body: 'Test Passed')*/
+                    /*emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
                 echo 'Grafana Deployment failed'
-                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'grafana deploy failed', to: 'nds597@walla.com', body: 'grafana deploy failed')
+                emailext(mimeType: 'text/html', replyTo: 'nds597@walla.com', subject: emailSubject+'grafana deploy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'grafana deploy failed')
         }
       }
 }
