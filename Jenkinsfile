@@ -4,7 +4,7 @@ pipeline {
      environment {
        REGISTRY = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
        IMG="youtube_crawler:0.0.$BUILD_NUMBER"
-       FINALTAG='${REGISTRY}/${IMG}'
+       FINALTAG=${REGISTRY}/${IMG}
        REGION="eu-north-1"
        red='\033[0;31m'
        green='\033[0;32m'
@@ -27,7 +27,7 @@ pipeline {
             docker build -t $IMG .
             printf "${green}Build Was Successful!"
             printf "${yellow}Tagging Docker Image...."
-            final="${REGISTRY}/${IMG}"
+            final= ${REGISTRY}/${IMG}
             docker tag $IMG $final
             printf "${green}Tagging Was Successful!"
             echo 'Tagging Was Successful!'
