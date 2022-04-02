@@ -186,6 +186,7 @@ pipeline {
                 script{
                 sh '''
                 cd infra/grafana
+                aws eks update-kubeconfig --region eu-north-1 --name devops-apr21-k8s --kubeconfig .kube
                 terraform plan -var-file=vars.tfvars
                     '''
                 input "Proceed to apply stage?"
@@ -200,7 +201,7 @@ pipeline {
                 script{
                 sh '''
                 cd infra/grafana
-                aws eks update-kubeconfig --region eu-north-1 --name devops-apr21-k8s --kubeconfig .kube
+
                 terraform apply -var-file=vars.tfvars -auto-approve
                     '''
                     }
