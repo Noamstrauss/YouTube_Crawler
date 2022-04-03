@@ -19,4 +19,4 @@ def upload():
     return render_template('resp.html', username=username, search_str=search_str, number=number)
 
 
-app.run(host='localhost', port=5858)
+app.run(host='localhost', port=8080)

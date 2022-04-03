@@ -1,5 +1,11 @@
-variable "imagetag" {
+variable "registry_url" {
   default = ""
-  description = "Providing an image-tag to terraform"
+  description = "Providing ECR registry url to terraform to pull image"
+  type = string
+}
+
+variable "namespace" {
+  default = ""
+  description = "namespace to create all resources"
   type = string
 }

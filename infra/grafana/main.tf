@@ -15,9 +15,9 @@ data "template_file" "grafana_values" {
 resource "helm_release" "grafana" {
   name       = "grafana"
   repository = "https://grafana.github.io/helm-charts"
-  version    = "6.24.1"
+  version    = var.grafana_version
   chart      = "grafana"
-  namespace  = "noams"
+  namespace  = var.namespace
   timeout    = 1200
 
   values = [
