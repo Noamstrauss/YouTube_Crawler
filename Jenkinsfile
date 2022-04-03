@@ -249,7 +249,7 @@ pipeline {
                 script{
                 sh '''
                 cd infra/youtube_deployment
-
+                aws eks update-kubeconfig --region eu-north-1 --name devops-apr21-k8s --kubeconfig .kube
                 terraform plan -var-file=vars.tfvars
                     '''
                     }
