@@ -21,6 +21,7 @@ pipeline {
             steps {
             echo '=== Building Docker Image  ==='
                 sh '''
+            safety check
             printf "${yellow}Authenticating With ECS...."
             aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
             printf "${green}Authenticating Was Successful! "
