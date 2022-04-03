@@ -1,6 +1,6 @@
 resource "aws_iam_role" "yt_iam_role_ui" {
   name = "youtube-ui-iam-role"
-  managed_policy_arns = [data.aws_iam_policy.iam_full_accsess.arn ,data.aws_iam_policy.s3_full_accsess.arn]
+  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess" ,"arn:aws:iam::aws:policy/IAMFullAccess"]
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -17,16 +17,16 @@ resource "aws_iam_role" "yt_iam_role_ui" {
 
 }
 
-
-data "aws_iam_policy" "iam_full_accsess" {
-  arn = "arn:aws:iam::aws:policy/IAMFullAccess"
-
-}
-
-data "aws_iam_policy" "s3_full_accsess" {
-  arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-
-}
+#
+#data "aws_iam_policy" "iam_full_accsess" {
+#  arn = "arn:aws:iam::aws:policy/IAMFullAccess"
+#
+#}
+#
+#data "aws_iam_policy" "s3_full_accsess" {
+#  arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+#
+#}
 
 #resource "aws_iam_role_policy_attachment" "sto-readonly-role-policy-attach" {
 #  role       = aws_iam_role.yt_iam_role_ui.name
