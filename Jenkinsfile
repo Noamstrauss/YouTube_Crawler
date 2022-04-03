@@ -254,7 +254,7 @@ pipeline {
                     }
     }
              post {
-         success {
+            success {
                 echo 'Terraform Destroy was success'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }

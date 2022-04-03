@@ -1,21 +1,21 @@
-resource "aws_iam_role" "yt_iam_role_ui" {
-  name = "youtube-ui-role"
-  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess" ,"arn:aws:iam::aws:policy/IAMFullAccess"]
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
-
-}
+#resource "aws_iam_role" "yt_iam_role_ui" {
+#  name = "youtube-ui-role"
+#  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess" ,"arn:aws:iam::aws:policy/IAMFullAccess"]
+#  assume_role_policy = jsonencode({
+#    Version = "2012-10-17"
+#    Statement = [
+#      {
+#        Action = "sts:AssumeRole"
+#        Effect = "Allow"
+#        Sid    = ""
+#        Principal = {
+#          Service = "ec2.amazonaws.com"
+#        }
+#      },
+#    ]
+#  })
+#
+#}
 
 #
 #data "aws_iam_policy" "iam_full_accsess" {
@@ -44,7 +44,8 @@ resource "kubernetes_service_account" "yt_service_account_ui" {
     name = "youtube-ui-service-account"
     namespace = var.namespace
     annotations = {
-      "eks.amazonaws.com/role-arn": aws_iam_role.yt_iam_role_ui.arn
+      "eks.amazonaws.com/role-arn": "arn:aws:iam::352708296901:role/Youtube_User_role_noams"
+#      "eks.amazonaws.com/role-arn": aws_iam_role.yt_iam_role_ui.arn
       "eks.amazonaws.com/sts-regional-endpoints" = true
     }
   }
