@@ -1,5 +1,5 @@
 resource "aws_iam_role" "yt_iam_role_ui" {
-  name = "youtube-ui-iam-role"
+  name = "youtube-ui-role"
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess" ,"arn:aws:iam::aws:policy/IAMFullAccess"]
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
