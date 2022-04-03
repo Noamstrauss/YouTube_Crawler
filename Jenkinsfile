@@ -132,7 +132,7 @@ pipeline {
       }
 }
 
-       stage('Terraform init ') {
+       stage('Grafana Terraform init ') {
 
             steps {
               echo '=== Running Terraform Init ==='
@@ -179,7 +179,7 @@ pipeline {
 //}
 
 
-       stage('Terraform Plan') {
+       stage('Grafana Terraform Plan') {
 
             steps {
               echo '=== Running Terraform Plan ==='
@@ -194,7 +194,7 @@ pipeline {
     }
 }
 
-        stage('Terraform Apply') {
+        stage('Grafana Terraform Apply') {
 
             steps {
               echo '=== Starting Terraform Apply ==='
@@ -214,6 +214,77 @@ pipeline {
             failure {
                 echo 'Terraform Apply failed'
                 emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Apply failed')
+        }
+      }
+}
+
+        stage('Youtube-App Terraform Init') {
+
+            steps {
+              echo '=== Starting Terraform Init ==='
+                script{
+                sh '''
+                cd infra/youtube_deployment
+
+                terraform init
+                    '''
+                    }
+    }
+             post {
+         success {
+                echo 'Youtube-App Terraform Init was successful '
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Youtube-App Terraform Init failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App Terraform Init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App Terraform Init failed')
+        }
+      }
+}
+
+ stage('Youtube-App Terraform plan') {
+
+            steps {
+              echo '=== Starting Terraform Plan ==='
+                script{
+                sh '''
+                cd infra/youtube_deployment
+
+                terraform plan -var-file=vars.tfvars
+                    '''
+                    }
+    }
+             post {
+            success {
+                echo 'Youtube-App Terraform plan was successful '
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Youtube-App Terraform plan failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App Terraform plan failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App Terraform plan failed')
+        }
+      }
+}
+
+ stage('Youtube-App Terraform Apply') {
+
+            steps {
+              echo '=== Starting Terraform Apply ==='
+                script{
+                sh '''
+                cd infra/youtube_deployment
+                terraform Apply -var-file=vars.tfvars -auto-approve
+                    '''
+                    }
+    }
+             post {
+            success {
+                echo 'Youtube-App Terraform Apply was successful '
+                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                }
+            failure {
+                echo 'Youtube-App Terraform Apply failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App Terraform Apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App Terraform Apply failed')
         }
       }
 }

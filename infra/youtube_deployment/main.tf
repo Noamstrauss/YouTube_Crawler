@@ -79,7 +79,7 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
 
       spec {
         container {
-          image = "${var.registry_url}/youtube_crawler:0.0.25"
+          image = "${var.registry_url}/youtube_crawler:latest"
           name  = "youtube-ui"
 
           resources {
