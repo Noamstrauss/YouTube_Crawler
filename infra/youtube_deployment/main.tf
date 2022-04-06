@@ -56,7 +56,7 @@ resource "kubernetes_service_account" "yt_service_account_ui" {
 resource "kubernetes_deployment" "yt_deployment_ui" {
   metadata {
     name = "youtube-ui"
-    namespace = "noams"
+    namespace = var.namespace
     labels = {
       name = "youtube-ui"
     }
@@ -104,6 +104,7 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
 resource "kubernetes_service" "yt_service_ui" {
   metadata {
     name = "yt-service-ui"
+    namespace = var.namespace
   }
   spec {
     selector = {
