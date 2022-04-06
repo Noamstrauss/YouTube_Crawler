@@ -24,40 +24,33 @@ else:
 # An Function That Creates An User In IAM
 def create_user(username):
 
-    while True:
-
-        try:
-            response = client.create_user(
-                UserName=username,
-                PermissionsBoundary=permission,
-                Tags=[
-                    {
-                        'Key': 'YoutubeAppSubscriber',
-                        'Value': username
-                    },
-                ]
-            )
-            time.sleep(1.2)
-            print("------------------------------------------------------------")
-            log.info((colored("Successfully Created User '{}'".format(username), 'green')))
-            print("------------------------------------------------------------")
-
-            break
-
-        except ClientError as e:
-            if e.response['Error']['Code'] == 'EntityAlreadyExists':
-                log.error(colored('User already exists', 'red'))
-                log.info("Please Enter A Different User Name")
-                username = input("Enter Username: ")
-                continue
-            else:
-                log.error("Unexpected error: %s" % e)
-                username = input("Enter Username: ")
-                continue
+    try:
+        response = client.create_user(
+            UserName=username,
+            PermissionsBoundary=permission,
+            Tags=[
+                {
+                    'Key': 'YoutubeAppSubscriber',
+                    'Value': username
+                },
+            ]
+        )
+        time.sleep(1.2)
+        print("------------------------------------------------------------")
+        log.info((colored("Successfully Created User '{}'".format(username), 'green')))
+        print("------------------------------------------------------------")
 
 
 
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'EntityAlreadyExists':
+            log.error(colored('User already exists', 'red'))
+            log.info("Please Enter A Different User Name")
+            username = input("Enter Username: ")
 
+        else:
+            log.error("Unexpected error: %s" % e)
+            username = input("Enter Username: ")
 
 
 if __name__ == '__main__':

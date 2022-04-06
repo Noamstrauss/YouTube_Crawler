@@ -13,10 +13,10 @@ def form():
 def upload():
     username = request.form.get("username")
     search_str = request.form.get("search_str")
-    number = request.form.get("number")
-    response(username, search_str, number)
+    # number = request.form.get("number")
+    response(username, search_str)
 
-    return render_template('resp.html', username=username, search_str=search_str, number=number)
+    return render_template('resp.html', username=username, search_str=search_str)
 
 
-app.run(host='localhost', port=8080)
+app.run(host='localhost', port=8081)

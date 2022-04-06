@@ -34,7 +34,7 @@ def search(arg,number):
         exit(1)
 
 # S3 Upload Function
-def upload(username,search_str,number):
+def upload(username,search_str,number=1):
     downloaded_files = search(search_str, number)
     try:
         for a in downloaded_files[0]:

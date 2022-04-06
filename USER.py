@@ -7,7 +7,7 @@ import pyfiglet
 from logger.user_logger import *
 from User.youtube import upload
 
-def response(username,search_str,number):
+def response(username,search_str,number=1):
     # App Welcome Sign
     welcome = pyfiglet.figlet_format("Youtube Crawler")
     print(welcome)
@@ -48,7 +48,7 @@ def response(username,search_str,number):
 
 
     # Calling Youtube With search_str,search_results,username
-    upload(username, search_str, number)
+    upload(username, search_str ,number)
 
     log.info('Uploaded Successfully %s video', search_str)
 
@@ -84,4 +84,4 @@ def response(username,search_str,number):
 
 
 if __name__ == '__main__':
-    response("username","10 sec video",1)
+    response("username","youtube-dl test video '/\ä↭𝕐")
