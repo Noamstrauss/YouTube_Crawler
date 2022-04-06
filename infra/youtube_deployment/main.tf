@@ -108,7 +108,7 @@ resource "kubernetes_service" "yt_service_ui" {
   }
   spec {
     selector = {
-      app = kubernetes_deployment.yt_deployment_ui.metadata[0].labels.name
+      name = kubernetes_deployment.yt_deployment_ui.metadata[0].labels.name
     }
     session_affinity = "ClientIP"
     port {
