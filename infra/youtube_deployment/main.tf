@@ -81,6 +81,7 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
       spec {
         container {
           image = "${var.registry_url}/youtube_crawler:latest"
+          imagePullPolicy = IfNotPresent
           name  = "youtube-ui"
 
           resources {
@@ -108,14 +109,13 @@ resource "kubernetes_service" "yt_service_ui" {
   }
   spec {
     selector = {
-      name = kubernetes_deployment.yt_deployment_ui.metadata[0].labels.name
+      name  = "youtube-ui"
     }
-    session_affinity = "ClientIP"
     port {
       port        = 8081
-      target_port = 8080
+      target_port = 8081
     }
 
-    type = "LoadBalancer"
+    type = "NodePort"
   }
 }
