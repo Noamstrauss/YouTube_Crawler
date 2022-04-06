@@ -41,21 +41,21 @@
 
 resource "kubernetes_service_account" "yt_service_account_ui" {
   metadata {
-    name = "youtube-ui-service-account"
+    name      = "youtube-ui-service-account"
     namespace = var.namespace
     annotations = {
-      "eks.amazonaws.com/role-arn": "arn:aws:iam::352708296901:role/Youtube_User_role_noams"
-#      "eks.amazonaws.com/role-arn": aws_iam_role.yt_iam_role_ui.arn
+      "eks.amazonaws.com/role-arn" : "arn:aws:iam::352708296901:role/Youtube_User_role_noams"
+      #      "eks.amazonaws.com/role-arn": aws_iam_role.yt_iam_role_ui.arn
       "eks.amazonaws.com/sts-regional-endpoints" = true
     }
   }
-  automount_service_account_token = true
+  automount_service_account_token = false
 }
 
 
 resource "kubernetes_deployment" "yt_deployment_ui" {
   metadata {
-    name = "youtube-ui"
+    name      = "youtube-ui"
     namespace = var.namespace
     labels = {
       name = "youtube-ui"
@@ -67,22 +67,21 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
 
     selector {
       match_labels = {
-         name = "youtube-ui"
+        name = "youtube-ui"
       }
     }
 
     template {
       metadata {
         labels = {
-         name = "youtube-ui"
+          name = "youtube-ui"
         }
       }
 
       spec {
         container {
-          image = "${var.registry_url}/youtube_crawler:latest"
-          imagePullPolicy = IfNotPresent
-          name  = "youtube-ui"
+          image           = "${var.registry_url}/youtube_crawler:latest"
+          name            = "youtube-ui"
 
           resources {
             limits = {
@@ -96,6 +95,7 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
           }
         }
         service_account_name = kubernetes_service_account.yt_service_account_ui.metadata[0].name
+        automount_service_account_token = false
       }
     }
   }
@@ -104,12 +104,12 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
 
 resource "kubernetes_service" "yt_service_ui" {
   metadata {
-    name = "yt-service-ui"
+    name      = "yt-service-ui"
     namespace = var.namespace
   }
   spec {
     selector = {
-      name  = "youtube-ui"
+      name = "youtube-ui"
     }
     port {
       port        = 8081

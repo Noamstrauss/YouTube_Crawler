@@ -1,11 +1,11 @@
 variable "registry_url" {
-  default = ""
+  default     = ""
   description = "Providing ECR registry url to terraform to pull image"
-  type = string
+  type        = string
 }
 
 variable "namespace" {
-  default = ""
+  default     = ""
   description = "namespace to create all resources"
-  type = string
+  type        = string
 }
