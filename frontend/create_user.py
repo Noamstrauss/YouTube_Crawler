@@ -21,7 +21,7 @@ else:
 
 
 
-# An Function That Creates An User In IAM
+# An Function That Creates An frontend In IAM
 def create_user(username):
 
     try:
@@ -37,15 +37,15 @@ def create_user(username):
         )
         time.sleep(1.2)
         print("------------------------------------------------------------")
-        log.info((colored("Successfully Created User '{}'".format(username), 'green')))
+        log.info((colored("Successfully Created frontend '{}'".format(username), 'green')))
         print("------------------------------------------------------------")
 
 
 
     except ClientError as e:
         if e.response['Error']['Code'] == 'EntityAlreadyExists':
-            log.error(colored('User already exists', 'red'))
-            log.info("Please Enter A Different User Name")
+            log.error(colored('frontend already exists', 'red'))
+            log.info("Please Enter A Different frontend Name")
             username = input("Enter Username: ")
 
         else:

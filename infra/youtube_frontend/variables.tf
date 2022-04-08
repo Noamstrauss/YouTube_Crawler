@@ -11,7 +11,7 @@ variable "namespace" {
 }
 
 variable "cluster_name" {
-  default = ""
+  default     = ""
   description = "EKS cluster name"
-  type = string
+  type        = string
 }

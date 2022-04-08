@@ -1,6 +1,6 @@
 import boto3
 from botocore.exceptions import ClientError
-from Server.get_user_age_seconds import get_user_age_seconds
+from backend.get_user_age_seconds import get_user_age_seconds
 from termcolor import colored
 import time
 from config.config import *
@@ -59,18 +59,18 @@ def delete_outdated_usernames():
                         log.error("Unexpected error: %s" % e)
                         time.sleep(2)
 
-                    # Trying To Detach User From Policy
+                    # Trying To Detach frontend From Policy
                     try:
                         response_policy = policy.detach_user(
                             UserName=fo_user)
-                        log.info((colored("Detached User %s Successfully" % fo_user, 'green')))
+                        log.info((colored("Detached frontend %s Successfully" % fo_user, 'green')))
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException :
-                        log.info((colored("User %s Policy Was Not Found" % fo_user, 'yellow')))
+                        log.info((colored("frontend %s Policy Was Not Found" % fo_user, 'yellow')))
                         time.sleep(2)
 
-                    # Trying To Delete User Login Profile (Password)
+                    # Trying To Delete frontend Login Profile (Password)
                     try:
                         response = client.delete_login_profile(
                             UserName=fo_user)
@@ -81,7 +81,7 @@ def delete_outdated_usernames():
                         log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
                         time.sleep(2)
 
-                    # Trying To Remove User From Group (Permission)
+                    # Trying To Remove frontend From Group (Permission)
                     try:
                         response = client.remove_user_from_group(
                             GroupName=group,
@@ -104,12 +104,12 @@ def delete_outdated_usernames():
                     except ClientError as e:
                         print("Unexpected error: %s" % e)
                     """
-                    # Trying To Delete User From IAM
+                    # Trying To Delete frontend From IAM
                     try:
                         response_del = client.delete_user(
                             UserName=fo_user)
                         time.sleep(2)
-                        log.info((colored("Successfully Deleted User %s" % fo_user, 'green')))
+                        log.info((colored("Successfully Deleted frontend %s" % fo_user, 'green')))
                         log.info("----------------------")
                         time.sleep(2)
                     except ClientError as e:
@@ -122,7 +122,7 @@ def delete_outdated_usernames():
                             response = client.list_users()
                             for i in range(len(response['Users'])):
                                 if (response['Users'][i]['UserName']) == admin:
-                                    print("Deleted All Exipred Users! - Only Admin User '{}' Is ACTIVE ".format(admin))
+                                    print("Deleted All Exipred Users! - Only Admin frontend '{}' Is ACTIVE ".format(admin))
                                     time.sleep(3)
                                     log.info('----------------------')
                                     continue
@@ -141,7 +141,7 @@ def delete_outdated_usernames():
                     time.sleep(1.5)
                     print('No Subs')
                     time.sleep(1.5)
-                    print((colored("Only Admin User '%s' is active" % admin, 'yellow')))
+                    print((colored("Only Admin frontend '%s' is active" % admin, 'yellow')))
                     time.sleep(1.5)
 
 

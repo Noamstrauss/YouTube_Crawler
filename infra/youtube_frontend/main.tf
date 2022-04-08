@@ -43,8 +43,8 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
 
       spec {
         container {
-          image           = "${var.registry_url}/youtube_crawler:latest"
-          name            = "youtube-ui"
+          image = "${var.registry_url}/youtube_crawler:latest"
+          name  = "youtube-ui"
 
           resources {
             limits = {
@@ -57,7 +57,7 @@ resource "kubernetes_deployment" "yt_deployment_ui" {
             }
           }
         }
-        service_account_name = kubernetes_service_account.yt_service_account_ui.metadata[0].name
+        service_account_name            = kubernetes_service_account.yt_service_account_ui.metadata[0].name
         automount_service_account_token = false
       }
     }

@@ -1,11 +1,11 @@
-from User.create_user import create_user
+from frontend.create_user import create_user
 from termcolor import colored
 from validation.yes_or_no import yes_or_no
 from validation.number_input import number_vali
 import time
 import pyfiglet
 from logger.user_logger import *
-from User.youtube import upload
+from frontend.youtube import upload
 
 def response(username,search_str,number=1):
     # App Welcome Sign
@@ -20,14 +20,14 @@ def response(username,search_str,number=1):
     log.info('Start Log')
     # Creating a username for Youtube Crawler
     create_user(username)
-    log.info('User: %s Created!', username)
+    log.info('frontend: %s Created!', username)
 
     time.sleep(1.2)
     time.sleep(1.2)
 
-    # Asking User for a Search String
+    # Asking frontend for a Search String
     # If you only want to download a short test video enter ---> youtube-dl test video
-    log.info('User: %s selected %s to download', username, search_str)
+    log.info('frontend: %s selected %s to download', username, search_str)
     time.sleep(1.2)
     time.sleep(1.2)
 

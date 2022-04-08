@@ -9,10 +9,9 @@ module "iam_assumable_role_with_oidc" {
   tags = {
     Role = "role-with-oidc-noams"
   }
+  provider_url = data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 
-  provider_url = data.aws_eks_cluster.example.identity[0].oidc[0].issuer
-
-  role_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  role_policy_arns           = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
   number_of_role_policy_arns = 1
 }
 
