@@ -40,7 +40,7 @@ def upload(username,search_str,number=1):
         for a in downloaded_files[0]:
             try:
                 s3_client.upload_file(a, bucket,username + "/" + a)
-                log.info((colored("Successfully Downloaded {} ".format(a), 'green')))
+                log.info((colored("Downloaded Successfully {} ".format(a), 'green')))
             except Exception as g:
                 log.error("Error", g)
                 exit(1)

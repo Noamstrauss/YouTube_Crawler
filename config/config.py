@@ -8,8 +8,8 @@
 #5. Specify An Maximum User Age (max_user_age_seconds) in Config Bellow.
 #6. Create An Policy Permission In IAM To Allow Users To View There Videos (see policy_example.txt).
 #7. Specify Bellow Policy Permission ARN That You Created In Step 6.
-#8. Run USER.py.
-#9. Run SERVER.py On Server.
+#8. Run response.py.
+#9. Run backend.py On Server.
 
 
 #TODO Define Policy To set Users Permissions

@@ -45,7 +45,7 @@ def delete_outdated_usernames():
                 expired = get_user_age_seconds(fo_user)
                 if expired == True and fo_user != admin:
 
-                    # Trying To Delete Users Files From S3 Bucket After He Expired
+                    # Trying To Delete Users Files From S3 Bucket After He Has Expired
                     try:
                         # print((colored("Trying To Delete Users '{}' Files...".format(fo_user), 'yellow')))
                         path = fo_user + "/"

@@ -9,3 +9,9 @@ variable "namespace" {
   description = "namespace to create all resources"
   type        = string
 }
+
+variable "cluster_name" {
+  default = ""
+  description = "EKS cluster name"
+  type = string
+}
