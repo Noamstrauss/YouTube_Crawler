@@ -34,7 +34,6 @@ log.info('Start Log')
 def delete_outdated_usernames():
 
     # Asking If To Print Of List Of Users After Deletion
-    #yes_or_no("Would You Like To View Status of Sub's After Deletion?")
 
     while True:
         try: # Delete
@@ -42,6 +41,7 @@ def delete_outdated_usernames():
             users_d = (response['Users'])
             for x in range(len(users_d)):
                 fo_user = users_d[x]['UserName']
+                tags = client.list_user_tags(fo_user)
                 expired = get_user_age_seconds(fo_user)
                 if expired == True and fo_user != admin:
 
@@ -56,59 +56,41 @@ def delete_outdated_usernames():
                         # print("--------------------------------------------")
                         time.sleep(2)
                     except ClientError as e:
-                        # print("Unexpected error: %s" % e)
                         log.error("Unexpected error: %s" % e)
                         time.sleep(2)
 
                     # Trying To Detach User From Policy
                     try:
-                        # print((colored("Trying To Detach User '{} ' From Policy...".format(fo_user), 'yellow')))
                         response_policy = policy.detach_user(
                             UserName=fo_user)
                         log.info((colored("Detached User %s Successfully" % fo_user, 'green')))
-                        # print((colored("Successfully Detached '{}' From Policy".format(fo_user), 'green')))
-                        # print("--------------------------------------------")
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException :
-                        # print('User %s Policy Was Not Found' % fo_user)
                         log.info((colored("User %s Policy Was Not Found" % fo_user, 'yellow')))
-                        # print("--------------------------------------------")
                         time.sleep(2)
 
                     # Trying To Delete User Login Profile (Password)
                     try:
-                        # print((colored("Trying To Delete '{}''s Login Profile ...".format(fo_user),
-                        #                'yellow')))
                         response = client.delete_login_profile(
                             UserName=fo_user)
                         log.info((colored("Successfully Deleted  %s Login Profile" % fo_user, 'green')))
-                        # print((colored("Successfully Deleted '{}' Login Profile".format(fo_user), 'green')))
-                        # print("--------------------------------------------")
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException:
-                        # print('Login Profile Not Found')
                         log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
-                        # print("--------------------------------------------")
                         time.sleep(2)
 
                     # Trying To Remove User From Group (Permission)
                     try:
-                        # print((colored("Trying To Remove '{}' From Group ...".format(fo_user),
-                        #                'yellow')))
                         response = client.remove_user_from_group(
                             GroupName=group,
                             UserName=fo_user)
                         log.info((colored("Successfully Removed %s From Group" % fo_user, 'green')))
-                        # print((colored("Successfully Removed '{}' From Group".format(fo_user), 'green')))
-                        # print("--------------------------------------------")
                         time.sleep(2)
 
                     except client.exceptions.NoSuchEntityException:
-                        # print('Login Profile %s Not Found' % fo_user)
                         log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
-                        # print("--------------------------------------------")
                         time.sleep(2)
 
 
@@ -124,15 +106,11 @@ def delete_outdated_usernames():
                     """
                     # Trying To Delete User From IAM
                     try:
-                        # print((colored("Trying To Delete User '{}'...".format(fo_user), 'yellow')))
                         response_del = client.delete_user(
                             UserName=fo_user)
                         time.sleep(2)
-                        # print((colored("Successfully Deleted '{}'".format(fo_user), 'green', attrs=['bold'],)))
                         log.info((colored("Successfully Deleted User %s" % fo_user, 'green')))
                         log.info("----------------------")
-                        # print("--------------------------------------------",)
-                        # print("\n")
                         time.sleep(2)
                     except ClientError as e:
                         log.error("Unexpected error: %s" % e)
@@ -170,7 +148,6 @@ def delete_outdated_usernames():
         except KeyboardInterrupt:
             log.info('End Log')
             log.info('----------------------')
-            # print('Interrupted!')
             print((colored("Interrupted!", 'yellow')))
             exit(0)
 
