@@ -201,7 +201,7 @@ pipeline {
               echo '=== Starting Terraform Init ==='
                 script{
                 sh '''
-                cd infra/youtube_deployment
+                cd infra/youtube_frontend
 
                 terraform init
                     '''
@@ -219,28 +219,6 @@ pipeline {
       }
 }
 
-//       stage('Youtube-App Terraform destroy') {
-//
-//            steps {
-//              echo '=== Running Terraform Destroy ==='
-//                script{
-//                sh '''
-//                cd infra/youtube_deployment
-//                terraform destroy -var-file=vars.tfvars -auto-approve
-//                    '''
-//                    }
-//    }
-//             post {
-//            success {
-//                echo 'Terraform Destroy was success'
-//                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-//                }
-//            failure {
-//                echo 'Terraform Destroy failed'
-//                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Destroy failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Destroy failed')
-//        }
-//      }
-//}
 
  stage('Youtube-App Terraform plan') {
 
@@ -248,7 +226,7 @@ pipeline {
               echo '=== Starting Terraform Plan ==='
                 script{
                 sh '''
-                cd infra/youtube_deployment
+                cd infra/youtube_frontend
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
                 terraform plan -var-file=vars.tfvars
                     '''
@@ -273,7 +251,7 @@ pipeline {
               echo '=== Starting Terraform Apply ==='
                 script{
                 sh '''
-                cd infra/youtube_deployment
+                cd infra/youtube_frontend
                 terraform apply -var-file=vars.tfvars -auto-approve
                     '''
                     }
