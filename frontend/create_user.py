@@ -44,7 +44,7 @@ def create_user(username):
 
     except ClientError as e:
         if e.response['Error']['Code'] == 'EntityAlreadyExists':
-            log.error(colored('frontend already exists', 'red'))
+            log.error(colored('User already exists', 'red'))
             log.info("Please Enter A Different frontend Name")
             username = input("Enter Username: ")
 
