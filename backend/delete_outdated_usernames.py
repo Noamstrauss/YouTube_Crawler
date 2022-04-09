@@ -33,9 +33,6 @@ log.info('Start Log')
 # Deletes users older than max_user_age_seconds
 def delete_outdated_usernames():
 
-    # Asking If To Print Of List Of Users After Deletion
-
-    while True:
         try: # Delete
             response = client.list_users() # get all users in aws
             users_d = (response['Users']) # format list only to the user nested list ( dictionary)
