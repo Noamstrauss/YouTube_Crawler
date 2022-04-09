@@ -5,16 +5,18 @@ data "aws_eks_cluster_auth" "example" {
 
 resource "kubernetes_service" "example" {
   metadata {
-    name = "yt-service-front"
+    name      = "yt-service-front"
     namespace = var.namespace
   }
   spec {
-     selector = {
+    selector = {
       name = "youtube-front"
     }
     port {
       port        = 8081
       target_port = 8081
+      protocol    = "TCP"
+
     }
     type = "LoadBalancer"
   }
@@ -30,9 +32,9 @@ data "aws_elb" "example" {
   name = local.lb_name
 }
 
-#output "load_balancer_name" {
-#  value = local.lb_name
-#}
+output "load_balancer_name" {
+  value = local.lb_name
+}
 
 output "load_balancer_hostname" {
   value = kubernetes_service.example.status.0.load_balancer.0.ingress.0.hostname

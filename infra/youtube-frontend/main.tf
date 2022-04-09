@@ -44,7 +44,10 @@ resource "kubernetes_deployment" "yt_deployment_front" {
       spec {
         container {
           image = "${var.registry_url}/youtube_crawler:latest"
-          name = "youtube-front"
+          name  = "youtube-front"
+          port {
+            container_port = 8081
+          }
 
           resources {
             limits = {
