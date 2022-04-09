@@ -12,9 +12,9 @@ variable "cluster_name" {
 
 
 variable "backend_name" {
-  default = ""
+  default     = ""
   description = "Backend name for resources"
-  type = string
+  type        = string
 
 }
 

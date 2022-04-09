@@ -6,7 +6,7 @@ data "aws_eks_cluster" "cluster" {
 data "kubernetes_service_account" "service-account" {
   metadata {
     namespace = var.namespace
-    name = "youtube-service-account"
+    name      = "youtube-service-account"
   }
 }
 

@@ -22,13 +22,13 @@ resource "kubernetes_cron_job" "yt-cronjob-back" {
         template {
           metadata {}
           spec {
-            service_account_name = "youtube-service-account"
+            service_account_name            = "youtube-service-account"
             automount_service_account_token = false
-            restart_policy = "OnFailure"
+            restart_policy                  = "OnFailure"
             container {
-              name    = var.backend_name
-              image   = "${var.registry_url}/youtube_crawler:latest"
-              command = ["python3", "backend_run.py"]
+              name              = var.backend_name
+              image             = "${var.registry_url}/youtube_crawler:latest"
+              command           = ["python3", "backend_run.py"]
               image_pull_policy = "IfNotPresent"
             }
           }
