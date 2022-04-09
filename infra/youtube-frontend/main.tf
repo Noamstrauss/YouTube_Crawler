@@ -18,10 +18,10 @@ resource "kubernetes_service_account" "yt_service_account_front" {
 
 resource "kubernetes_deployment" "yt_deployment_front" {
   metadata {
-    name      = "youtube-front"
+    name      = "youtube-frontend"
     namespace = var.namespace
     labels = {
-      name = "youtube-front"
+      name = "youtube-frontend"
     }
   }
 
@@ -30,21 +30,21 @@ resource "kubernetes_deployment" "yt_deployment_front" {
 
     selector {
       match_labels = {
-        name = "youtube-front"
+        name = "youtube-frontend"
       }
     }
 
     template {
       metadata {
         labels = {
-          name = "youtube-front"
+          name = "youtube-frontend"
         }
       }
 
       spec {
         container {
           image = "${var.registry_url}/youtube_crawler:latest"
-          name  = "youtube-front"
+          name  = "youtube-frontend"
           port {
             container_port = 8081
           }

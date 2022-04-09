@@ -5,12 +5,12 @@ data "aws_eks_cluster_auth" "example" {
 
 resource "kubernetes_service" "example" {
   metadata {
-    name      = "yt-service-front"
+    name      = "yt-service-frontend"
     namespace = var.namespace
   }
   spec {
     selector = {
-      name = "youtube-front"
+      name = "youtube-frontend"
     }
     port {
       port        = 8081
