@@ -1,3 +1,4 @@
-registry_url = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
-namespace    = "noams"
-cluster_name = "devops-apr21-k8s"
+registry_url  = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
+namespace     = "noams"
+cluster_name  = "devops-apr21-k8s"
+frontend_name = "youtube-frontend"
