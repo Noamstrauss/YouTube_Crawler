@@ -126,7 +126,7 @@ pipeline {
       }
 }
 
-       stage('Terraform plan') {
+       stage('Terraform Plan') {
 
             steps {
               echo '=== Running Terraform plan ==='
@@ -151,7 +151,7 @@ pipeline {
 }
 
 
-       stage('Terraform apply') {
+       stage('Terraform Apply') {
 
             steps {
               echo '=== Running Terraform Apply ==='
