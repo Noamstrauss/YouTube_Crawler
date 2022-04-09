@@ -3,25 +3,20 @@ data "aws_eks_cluster" "cluster" {
   name = var.cluster_name
 }
 
-resource "kubernetes_service_account" "yt_service_account_front" {
+data "kubernetes_service_account" "service-account" {
   metadata {
-    name      = "youtube-service-account-front"
     namespace = var.namespace
-    annotations = {
-      "eks.amazonaws.com/role-arn" : module.iam_assumable_role_with_oidc.iam_role_arn
-      "eks.amazonaws.com/sts-regional-endpoints" = true
-    }
+    name      = "youtube-service-account"
   }
-  automount_service_account_token = false
 }
 
 
-resource "kubernetes_deployment" "yt_deployment_front" {
+resource "kubernetes_deployment" "yt-deployment-front" {
   metadata {
-    name      = "youtube-frontend"
+    name      = var.frontend_name
     namespace = var.namespace
     labels = {
-      name = "youtube-frontend"
+      name = var.frontend_name
     }
   }
 
@@ -30,21 +25,21 @@ resource "kubernetes_deployment" "yt_deployment_front" {
 
     selector {
       match_labels = {
-        name = "youtube-frontend"
+        name = var.frontend_name
       }
     }
 
     template {
       metadata {
         labels = {
-          name = "youtube-frontend"
+          name = var.frontend_name
         }
       }
 
       spec {
         container {
           image = "${var.registry_url}/youtube_crawler:latest"
-          name  = "youtube-frontend"
+          name  = var.frontend_name
           port {
             container_port = 8081
           }
@@ -60,28 +55,9 @@ resource "kubernetes_deployment" "yt_deployment_front" {
             }
           }
         }
-        service_account_name            = kubernetes_service_account.yt_service_account_front.metadata[0].name
+        service_account_name            = data.kubernetes_service_account.service-account.metadata[0].name
         automount_service_account_token = false
       }
     }
   }
 }
-
-
-#resource "kubernetes_service" "yt_service_front" {
-#  metadata {
-#    name      = "yt-service-front"
-#    namespace = var.namespace
-#  }
-#  spec {
-#    selector = {
-#      name = "youtube-front"
-#    }
-#    port {
-#      port        = 8081
-#      target_port = 8081
-#    }
-#
-#    type = "NodePort"
-#  }
-#}

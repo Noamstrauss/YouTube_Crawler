@@ -4,14 +4,22 @@ variable "registry_url" {
   type        = string
 }
 
-variable "namespace" {
-  default     = ""
-  description = "namespace to create all resources"
-  type        = string
-}
-
 variable "cluster_name" {
   default     = ""
   description = "EKS cluster name"
+  type        = string
+}
+
+
+variable "backend_name" {
+  default     = ""
+  description = "Backend name for resources"
+  type        = string
+
+}
+
+variable "namespace" {
+  default     = ""
+  description = "namespace to create all resources"
   type        = string
 }

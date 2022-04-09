@@ -1,3 +1,9 @@
+provider "helm" {
+  kubernetes {
+    config_path = ".kube"
+  }
+}
+
 terraform {
   required_providers {
     aws = {

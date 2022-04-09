@@ -2,7 +2,7 @@ locals {
   grafana_host = "grafana.${var.environment}.local"
 }
 
-data "template_file" "grafana_values" {
+data "template_file" "grafana-values" {
   template = file("${path.module}/grafana-values.yaml")
 
   vars = {
@@ -21,6 +21,6 @@ resource "helm_release" "grafana" {
   timeout    = 1200
 
   values = [
-    data.template_file.grafana_values.rendered
+    data.template_file.grafana-values.rendered
   ]
 }
