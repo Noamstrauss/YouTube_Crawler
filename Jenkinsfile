@@ -106,239 +106,76 @@ pipeline {
             }
         }
 
-       stage('Terraform state Infra') {
+       stage('Terraform Init') {
 
             steps {
               echo '=== Running Terraform Init ==='
                 script{
                 sh '''
-                cd infra/s3
                 terraform init
-                echo '=== Running Terraform plan ==='
-                terraform plan
-                echo '=== Running Terraform apply ==='
-                terraform apply -auto-approve
-                    '''
+                   '''
                     }
     }
              post {
-         success {
-                echo 'Terraform state Infra was successfully set'
+            success {
+                echo 'Terraform Init was successful'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Terraform state Infra infrastructure failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform state infrastructure setup failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform state infrastructure setup failed')
+                echo 'Terraform Init failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform Init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform Init failed')
         }
       }
 }
 
-       stage('Grafana Infrastructure ') {
+       stage('Terraform plan') {
 
             steps {
-              echo '=== Running Terraform Init ==='
+              echo '=== Running Terraform plan ==='
                 script{
                 sh '''
-                cd infra/grafana
-                terraform init
+                aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
+                terraform plan -var-file=vars.tfvars
                     '''
+                    input "Proceed to apply stage?"
                     }
     }
              post {
          success {
-                echo 'Terraform init ran successfully'
+                echo 'Terraform plan ran successfully'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Terraform init failed'
+                echo 'Terraform plan failed'
                 emailext(mimeType: 'text/html', subject: emailSubject+' Terraform init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform init failed')
         }
       }
 }
 
 
-       stage('Grafana Terraform Plan') {
+       stage('Terraform apply') {
 
             steps {
-              echo '=== Running Terraform Plan ==='
+              echo '=== Running Terraform Apply ==='
                 script{
                 sh '''
-                cd infra/grafana
-                aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-                terraform plan -var-file=vars.tfvars
-                    '''
-
-                    }
-    }
-}
-
-        stage('Grafana Terraform Apply') {
-
-            steps {
-              echo '=== Starting Terraform Apply ==='
-                script{
-                sh '''
-                cd infra/grafana
-
                 terraform apply -var-file=vars.tfvars -auto-approve
                     '''
+
                     }
     }
-             post {
-         success {
-                echo 'Terraform Apply was successful '
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Terraform Apply failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Terraform Apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Terraform Apply failed')
-        }
-      }
-}
-        stage('Youtube-App FRONT Terraform Init') {
-
-            steps {
-              echo '=== Starting Terraform Init ==='
-                script{
-                sh '''
-                cd infra/youtube-frontend
-
-                terraform init
-                    '''
-                    }
-    }
-             post {
-         success {
-                echo 'Youtube-App FRONT Terraform Init was successful '
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Youtube-App FRONT Terraform Init failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App FRONT Terraform Init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App FRONT Terraform Init failed')
-        }
-      }
-}
-
-
- stage('Youtube-App FRONT Terraform plan') {
-
-            steps {
-              echo '=== Starting Terraform Plan ==='
-                script{
-                sh '''
-                cd infra/youtube-frontend
-                aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-                terraform plan -var-file=vars.tfvars
-                    '''
-                   input "Proceed to apply stage?"
-                    }
-    }
-             post {
+                 post {
             success {
-                echo 'Youtube-App FRONT Terraform plan was successful '
+                echo 'Terraform apply ran successfully'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Youtube-App FRONT Terraform plan failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App FRONT Terraform plan failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App FRONT Terraform plan failed')
+                echo 'Terraform apply failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform apply failed')
         }
       }
+
 }
-
- stage('Youtube-App FRONT Terraform Apply') {
-
-            steps {
-              echo '=== Starting Terraform Apply ==='
-                script{
-                sh '''
-                cd infra/youtube-frontend
-                terraform apply -var-file=vars.tfvars -auto-approve
-                    '''
-                    }
-    }
-             post {
-            success {
-                echo 'Youtube-App FRONT Terraform Apply was successful '
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Youtube-App FRONT Terraform Apply failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App FRONT Terraform Apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App FRONT Terraform Apply failed')
-        }
-      }
-}
-        stage('Youtube-App BACK Terraform Init') {
-
-            steps {
-              echo '=== Starting Terraform Init ==='
-                script{
-                sh '''
-                cd infra/youtube-backend
-                terraform init
-                    '''
-                    }
-    }
-             post {
-         success {
-                echo 'Youtube-App BACK Terraform Init was successful '
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Youtube-App BACK Terraform Init failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App BACK Terraform Init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App BACK Terraform Init failed')
-        }
-      }
-}
-
-
- stage('Youtube-App BACK Terraform plan') {
-
-            steps {
-              echo '=== Starting Terraform Plan ==='
-                script{
-                sh '''
-                cd infra/youtube-backend
-                aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-                terraform plan -var-file=vars.tfvars
-                    '''
-                   input "Proceed to apply stage?"
-                    }
-    }
-             post {
-            success {
-                echo 'Youtube-App BACK Terraform plan was successful '
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Youtube-App BACK Terraform plan failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App BACK Terraform plan failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App BACK Terraform plan failed')
-        }
-      }
-}
-
- stage('Youtube-App BACK Terraform Apply') {
-
-            steps {
-              echo '=== Starting Terraform Apply ==='
-                script{
-                sh '''
-                cd infra/youtube-backend
-                terraform apply -var-file=vars.tfvars -auto-approve
-                    '''
-                    }
-    }
-             post {
-            success {
-                echo 'Youtube-App BACK Terraform Apply was successful '
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
-                }
-            failure {
-                echo 'Youtube-App BACK Terraform Apply failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+'Youtube-App BACK Terraform Apply failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Youtube-App BACK Terraform Apply failed')
-        }
-      }
-}
-
 
     }
 }

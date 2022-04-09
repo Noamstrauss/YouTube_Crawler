@@ -21,7 +21,7 @@ admin = "aws35"
 
 
 #TODO Define Bucket Name to upload Videos
-bucket ='youtube-crawler'
+bucket ='youtube-crawler-files'
 
 #TODO Define frontend Maximun Subscriber age
 max_user_age_seconds = (2.0)
