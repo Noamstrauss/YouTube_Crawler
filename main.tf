@@ -25,6 +25,7 @@ module "youtube-frontend" {
   cluster_name  = var.cluster_name
   frontend_name = var.frontend_name
   namespace     = var.namespace
+  depends_on    = [module.s3]
 }
 
 

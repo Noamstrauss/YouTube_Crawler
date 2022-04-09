@@ -8,7 +8,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back" {
     concurrency_policy            = "Replace"
     failed_jobs_history_limit     = 1
     schedule                      = "*/15 * * * *"
-    starting_deadline_seconds     = 200
+    starting_deadline_seconds     = 10
     successful_jobs_history_limit = 0
     job_template {
       metadata {
