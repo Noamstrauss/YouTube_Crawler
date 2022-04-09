@@ -201,7 +201,7 @@ pipeline {
               echo '=== Starting Terraform Init ==='
                 script{
                 sh '''
-                cd infra/youtube_frontend
+                cd infra/youtube-frontend
 
                 terraform init
                     '''
@@ -226,7 +226,7 @@ pipeline {
               echo '=== Starting Terraform Plan ==='
                 script{
                 sh '''
-                cd infra/youtube_frontend
+                cd infra/youtube-frontend
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
                 terraform plan -var-file=vars.tfvars
                     '''
@@ -251,7 +251,7 @@ pipeline {
               echo '=== Starting Terraform Apply ==='
                 script{
                 sh '''
-                cd infra/youtube_frontend
+                cd infra/youtube-frontend
                 terraform apply -var-file=vars.tfvars -auto-approve
                     '''
                     }
