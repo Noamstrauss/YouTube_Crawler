@@ -1,0 +1,6 @@
+TODO:
+1. expose app ( public flask app ip )
+2. video viewer in html
+3. grafana dashboard
+4. logger improvement ( maybe module to write directly to elastic )
+5. backand as cronjob
