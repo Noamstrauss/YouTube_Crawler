@@ -33,7 +33,7 @@ pipeline {
                  '''
 
             }
-        post {
+             post {
             success {
                 echo 'Build Success '
                /* emailext(mimeType: 'text/html', subject: emailSubject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: emailBody)*/
@@ -53,7 +53,7 @@ pipeline {
                 '''
 
             }
-            post {
+                post {
                 success {
                   echo 'Test Success '
                     /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
@@ -75,8 +75,8 @@ pipeline {
                 }
             }
 
-         post {
-         success {
+             post {
+            success {
                 echo 'Push Success '
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
@@ -116,12 +116,12 @@ pipeline {
     }
              post {
             success {
-                echo 'Terraform Init was successful'
+                echo 'Terraform init was successful'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Terraform Init failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform Init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform Init failed')
+                echo 'Terraform init failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform init failed')
         }
       }
 }
@@ -139,7 +139,7 @@ pipeline {
                     }
     }
              post {
-         success {
+            success {
                 echo 'Terraform plan ran successfully'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
@@ -162,7 +162,7 @@ pipeline {
 
                     }
     }
-                 post {
+             post {
             success {
                 echo 'Terraform apply ran successfully'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
