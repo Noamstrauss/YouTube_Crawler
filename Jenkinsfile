@@ -16,7 +16,6 @@ pipeline {
 
     stages {
         stage('Build Docker Image') {
-        when { anyOf {branch "master";branch "dev"} }
 
             steps {
             echo '=== Building Docker Image  ==='
@@ -66,7 +65,6 @@ pipeline {
         }
         stage('Push Docker Image') {
 
-            when { anyOf {branch "master";branch "dev"} }
             steps {
                 echo '=== Building Docker Image ==='
                 script {
