@@ -106,7 +106,7 @@ pipeline {
             }
         }
 
-       stage('Terraform state Infrastructure') {
+       stage('Terraform state Infra') {
 
             steps {
               echo '=== Running Terraform Init ==='
@@ -123,17 +123,17 @@ pipeline {
     }
              post {
          success {
-                echo 'Terraform state was successfully set'
+                echo 'Terraform state Infra was successfully set'
                 /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
                 }
             failure {
-                echo 'Terraform state infrastructure failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform state infrastructure failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform state infrastructure failed')
+                echo 'Terraform state Infra infrastructure failed'
+                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform state infrastructure setup failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform state infrastructure setup failed')
         }
       }
 }
 
-       stage('Grafana Terraform init ') {
+       stage('Grafana Infrastructure ') {
 
             steps {
               echo '=== Running Terraform Init ==='
