@@ -140,12 +140,12 @@ def delete_outdated_usernames():
                                 except:
                                     pass
                                 """
-                            else:
-                                time.sleep(1.5)
-                                print('No Subs')
-                                time.sleep(1.5)
-                                print((colored("Only Admin User '%s' is active" % admin, 'yellow')))
-                                time.sleep(1.5)
+                        else:
+                            time.sleep(1.5)
+                            print('No Subs')
+                            time.sleep(1.5)
+                            print((colored("Only Admin User '%s' is active" % admin, 'yellow')))
+                            time.sleep(1.5)
 
 
         except KeyboardInterrupt:
