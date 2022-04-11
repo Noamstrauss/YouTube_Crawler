@@ -31,9 +31,9 @@ def get_user_age_seconds(username):
     user_create_date = response['User']['CreateDate']
 
 
-# Printing User Age To backend
+# Printing user Age To backend
 #     if username != admin:
-#         print("User ' {} ' is active (sec):".format(username),
+#         print("user ' {} ' is active (sec):".format(username),
 #               (datetime.now(timezone.utc) - user_create_date).total_seconds())
 #     else:
 #         pass
@@ -41,11 +41,11 @@ def get_user_age_seconds(username):
 # Calculating Users Age in Seconds
     user_seconds = (datetime.now(timezone.utc) - user_create_date).total_seconds()
 
-# Determining if User Expired And Excluding Admin From Being Expired
+# Determining if user Expired And Excluding Admin From Being Expired
     if user_seconds > max_user_age_seconds and username !=(admin):
         expired_sub = True
 
-        log.info((colored("User %s is expired " % username, 'red')))
+        log.info((colored("user %s is expired " % username, 'red')))
 
 
     else:

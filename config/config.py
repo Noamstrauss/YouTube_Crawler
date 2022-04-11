@@ -16,7 +16,7 @@
 permission = 'arn:aws:iam::352708296901:policy/S3VideoReader'
 
 
-# TODO Define An Admin User Name That Will Not Be Deleted
+# TODO Define An Admin user Name That Will Not Be Deleted
 admin = "aws35"
 
 
