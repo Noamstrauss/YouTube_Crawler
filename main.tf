@@ -1,11 +1,11 @@
-module "grafana" {
-  source          = "./infra/grafana"
-  environment     = var.environment
-  elastic_ver     = var.elastic_ver
-  index_name      = var.index_name
-  namespace       = var.namespace
-  grafana_version = var.grafana_version
-}
+#module "grafana" {
+#  source          = "./infra/grafana"
+#  environment     = var.environment
+#  elastic_ver     = var.elastic_ver
+#  index_name      = var.index_name
+#  namespace       = var.namespace
+#  grafana_version = var.grafana_version
+#}
 
 module "s3" {
   source = "./infra/s3"

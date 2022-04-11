@@ -8,3 +8,4 @@ output "iam_role_arn" {
 output "identity-oidc-issuer" {
   value = data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 }
+
