@@ -27,7 +27,7 @@ controller:
   publishService:
     enabled: true
   containerPort:
-    http: 80
+    http: 8081
     https: 443
   metrics:
     enabled: true

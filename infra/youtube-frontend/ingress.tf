@@ -8,11 +8,11 @@ resource "kubernetes_service_v1" "example" {
       name = "youtube-frontend"
     }
     port {
-      port        = 80
+      port        = 8081
       target_port = 8081
       protocol    = "TCP"
     }
-    type = "NodePort"
+    type = "LoadBalancer"
   }
 }
 
@@ -22,11 +22,13 @@ resource "kubernetes_ingress_v1" "frontend" {
     name = "frontend-ingress"
     namespace = var.namespace
     labels = {
-      name = "front-ingress"
+      name = "ingress"
+    }
+     annotations = {
+      "kubernetes.io/ingress.class" = "nginx"
     }
   }
   spec {
-    ingress_class_name = "nginx"
     rule {
       http {
         path {
