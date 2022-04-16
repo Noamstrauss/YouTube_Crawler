@@ -135,7 +135,9 @@ pipeline {
                 script{
                 sh '''
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-                terraform plan -var-file=vars.tfvars
+//                sed -i "s/<smtppass>/$PASSWORD/g" pip.conf
+                export TF_VAR_smtp_pass=${smtppass}
+                terraform plan
                     '''
                     input "Proceed to apply stage?"
                     }
@@ -159,7 +161,7 @@ pipeline {
               echo '=== Running Terraform Apply ==='
                 script{
                 sh '''
-                terraform apply -var-file=vars.tfvars -auto-approve
+                terraform apply -auto-approve
                     '''
 
                     }
