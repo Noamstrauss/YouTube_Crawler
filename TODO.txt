@@ -1,14 +1,12 @@
 TODO:
-1. expose app ( public flask app ip )
 2. video viewer in html
 3. grafana dashboard
-4. logger improvement ( maybe module to write directly to elastic )
 5. backand as cronjob
 6. change css in frontend
+5. grafana email alert
 
 
 issues:
-1. ELB not working
 2. video in html not working
 3. cronjob starts but won't continue
 

@@ -128,31 +128,43 @@ pipeline {
       }
 }
 
-       stage('Terraform Plan') {
-
+       stage('Terraform plan test') {
             steps {
-              echo '=== Running Terraform plan ==='
-                script{
-                sh '''
-                aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-                export TF_VAR_smtp_pass=${smtppass}
-                echo $TF_VAR_smtp_pass
-                terraform plan
-                    '''
-                    input "Proceed to apply stage?"
-                    }
-    }
-             post {
-            success {
-                echo 'Terraform plan ran successfully'
-                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+                dir("/root/terraform"){
+                    sh """
+                    export TF_VAR_smtp_pass=${smtppass}
+                    echo $TF_VAR_smtp_pass
+                    terraform plan
+                    """
                 }
-            failure {
-                echo 'Terraform plan failed'
-                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform init failed')
+            }
         }
-      }
-}
+
+//       stage('Terraform Plan') {
+//
+//            steps {
+//              echo '=== Running Terraform plan ==='
+//                script{
+//                sh '''
+//                aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
+//                export TF_VAR_smtp_pass=${smtppass}
+//                echo $TF_VAR_smtp_pass
+//                terraform plan
+//                    '''
+//                    input "Proceed to apply stage?"
+//                    }
+//    }
+//             post {
+//            success {
+//                echo 'Terraform plan ran successfully'
+//                /*emailext(mimeType: 'text/html', subject: emailSubject+'Test Results', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: 'Test Passed')*/
+//                }
+//            failure {
+//                echo 'Terraform plan failed'
+//                emailext(mimeType: 'text/html', subject: emailSubject+' Terraform init failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], body: ' Terraform init failed')
+//        }
+//      }
+//}
 
 
        stage('Terraform Apply') {
