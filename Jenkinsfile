@@ -135,8 +135,8 @@ pipeline {
                 script{
                 sh '''
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
+                sed -i "s/<smtpuser>/$smtpuser/g" infra/grafana/grafana-values.yaml
                 sed -i "s/<smtppass>/$smtppass/g" infra/grafana/grafana-values.yaml
-                echo $smtppass
                 terraform plan
                     '''
                     input "Proceed to apply stage?"

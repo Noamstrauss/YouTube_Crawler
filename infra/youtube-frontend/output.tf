@@ -10,6 +10,6 @@
 #  value = data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 #}
 
-output "load_balancer_hostname" {
+output "youtube_frontend_hostname" {
   value = kubernetes_service_v1.example.status.0.load_balancer.0.ingress.0.hostname
 }
