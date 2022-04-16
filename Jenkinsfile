@@ -136,6 +136,7 @@ pipeline {
                 sh '''
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
                 export TF_VAR_smtp_pass=${smtppass}
+                echo $TF_VAR_smtp_pass
                 terraform plan
                     '''
                     input "Proceed to apply stage?"
