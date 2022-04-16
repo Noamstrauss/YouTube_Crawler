@@ -37,7 +37,7 @@ def create_user(username):
         )
         time.sleep(1.2)
         print("------------------------------------------------------------")
-        log.info((colored("Successfully Created frontend '{}'".format(username), 'green')))
+        log.info((colored("Successfully Created User '{}'".format(username), 'green')))
         print("------------------------------------------------------------")
 
 
@@ -45,7 +45,7 @@ def create_user(username):
     except ClientError as e:
         if e.response['Error']['Code'] == 'EntityAlreadyExists':
             log.error(colored('user already exists', 'red'))
-            log.info("Please Enter A Different frontend Name")
+            log.info("Please Enter A Different User Name")
             username = input("Enter Username: ")
 
         else:
