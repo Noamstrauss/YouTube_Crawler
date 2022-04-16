@@ -5,6 +5,7 @@ module "grafana" {
   index_name      = var.index_name
   namespace       = var.namespace
   grafana_version = var.grafana_version
+  SMTP_PASSWORD   = var.smtp_pass
 }
 
 module "s3" {
