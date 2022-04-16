@@ -1,13 +1,13 @@
 TODO:
-2. video viewer in html
-3. grafana dashboard
-5. backand as cronjob
-6. change css in frontend
+1. video viewer in html
+2. grafana dashboard
+3. backand as cronjob
+4. change css in frontend
 5. grafana email alert
 
 
 issues:
-2. video in html not working
-3. cronjob starts but won't continue
+1. video in html not working
+2. cronjob starts but won't continue
 
 

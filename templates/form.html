@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html>
 <head>
     <meta charset="UTF-8">
     <title>Youtube Crawler</title>
     <link rel="icon" type="image/x-icon" href="static/favicon.ico">
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
 </head>
-<body>
+<div class="login-box">
+  <h2>Youtube Crawler</h2>
+  <form>
+    <div class="user-box">
+      <input type="text" name="" required="">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="" required="">
+      <label>Video</label>
+    </div>
+    <a href="#">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </a>
+  </form>
+</div>
 
-<h2>Youtube Crawler</h2>
-
-<form action="/upload" method="POST">
-  <label for="username">Username:</label><br>
-  <input type="text" id="username" name="username" value=""><br>
-  <label for="search_str">Youtube Video:</label><br>
-  <input type="text" id="search_str" name="search_str" value=""><br>
-  <input type="submit" value="Submit">
-</form>
 
 
-</body>
-</html>
 
