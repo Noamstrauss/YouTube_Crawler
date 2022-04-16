@@ -4,8 +4,10 @@ output "iam_role_arn" {
 }
 
 
-
 output "identity-oidc-issuer" {
   value = data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 }
 
+output "load_balancer_hostname" {
+  value = module.youtube-frontend.kubernetes_ingress_v1.example.status.0.load_balancer.0.ingress.0.hostname
+}
