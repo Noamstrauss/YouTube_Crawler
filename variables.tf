@@ -50,3 +50,11 @@ variable "frontend_name" {
   description = "Frontend name for resources"
   type        = string
 }
+
+variable "smtp_pass" {
+  description = "Password for smtp"
+  default     = ""
+  type        = string
+
+}
+

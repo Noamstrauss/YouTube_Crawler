@@ -12,6 +12,8 @@ pipeline {
        yellow='\033[0;33m'
        def emailBody = '${JELLY_SCRIPT,template="html_gmail"}'
        def emailSubject = "${env.JOB_NAME} - Build# ${env.BUILD_NUMBER}"
+       smtpuser= credentials('smtp_user')
+       smtppass= credentials('smtp_pass')
        }
 
     stages {

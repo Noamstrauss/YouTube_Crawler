@@ -24,3 +24,10 @@ variable "grafana_version" {
   description = ""
   type        = string
 }
+
+variable "smtp_pass" {
+  description = "Password for smtp"
+  default = ""
+  type = string
+
+}

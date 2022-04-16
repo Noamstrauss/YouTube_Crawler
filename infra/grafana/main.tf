@@ -9,6 +9,7 @@ data "template_file" "grafana-values" {
     GRAFANA_HOST = "${local.grafana_host}"
     INDEX_NAME   = var.index_name
     ELASTIC_VER  = var.elastic_ver
+    SMTP_PASSWORD = var.smtp_pass
   }
 }
 
