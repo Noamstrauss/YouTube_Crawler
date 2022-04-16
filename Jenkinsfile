@@ -135,7 +135,6 @@ pipeline {
                 script{
                 sh '''
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-//                sed -i "s/<smtppass>/$PASSWORD/g" pip.conf
                 export TF_VAR_smtp_pass=${smtppass}
                 terraform plan
                     '''
