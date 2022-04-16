@@ -54,7 +54,7 @@ grafana.ini:
     enabled: true
     host: smtp-relay.sendinblue.com:587
     user: <smtpuser>
-    passwordy: <smtppass>
+    password: <smtppass>
     skip_verify: true
     from_address: "noams-grafana-alerts@example.com"
     from_name: "Grafana"
