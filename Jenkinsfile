@@ -135,7 +135,7 @@ pipeline {
                 script{
                 sh '''
                 aws eks update-kubeconfig --region eu-north-1 --name ${clustername} --kubeconfig .kube
-                sed -i "s/<smtppass>/$smtppass/g" terraform.tfvars
+                sed -i "s/<smtppass>/$smtppass/g" infra/grafana/grafana-values.yaml
                 echo $smtppass
                 terraform plan
                     '''
