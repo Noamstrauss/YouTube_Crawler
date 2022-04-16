@@ -45,6 +45,31 @@ persistence:
 adminUser: admin
 adminPassword: password
 
+## Grafana's SMTP configuration
+## NOTE: To enable, grafana.ini must be configured with smtp.enabled
+## ref: http://docs.grafana.org/installation/configuration/#smtp
+
+#smtp:
+#  # `existingSecret` is a reference to an existing secret containing the smtp configuration
+#  # for Grafana.
+#  host: smtp-relay.sendinblue.com:587
+#  userKey: "nds597@walla.com"
+#  passwordKey: ${SMTP_PASSWORD}
+#  skip_verify: true
+#  from_address: "noams-grafana-alerts@example.com"
+#  from_name: "Grafana"
+
+
+grafana.ini:
+  smtp:
+    enabled: true
+    host: smtp-relay.sendinblue.com:587
+    userKey: "nds597@walla.com"
+    passwordKey: ${SMTP_PASSWORD}
+    skip_verify: true
+    from_address: "noams-grafana-alerts@example.com"
+    from_name: "Grafana"
+
 
 datasources:
   datasources.yaml:
