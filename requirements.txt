@@ -7,3 +7,4 @@ youtube-dl==2021.6.6
 pyfiglet~=0.8.post1
 DateTime~=4.3
 flask
+loguru

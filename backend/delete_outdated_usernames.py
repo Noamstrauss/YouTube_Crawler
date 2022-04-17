@@ -4,7 +4,7 @@ from backend.get_user_age_seconds import get_user_age_seconds
 from termcolor import colored
 import time
 from config.config import *
-from logger.server_logger import *
+from loguru import logger
 client = boto3.client('iam')
 s3 = boto3.resource('s3')
 iam = boto3.resource('iam')
@@ -28,8 +28,8 @@ iam = boto3.resource('iam')
 
 policy = iam.Policy(permission)
 
-log.info('----------------------')
-log.info('Start Log')
+logger.info('----------------------')
+logger.info('Start Log')
 # Deletes users older than max_user_age_seconds
 def delete_outdated_usernames():
     response = client.list_users() # get all users in aws
@@ -50,33 +50,33 @@ def delete_outdated_usernames():
                             bucket1 = s3.Bucket(bucket)
                             bucket1.objects.filter(Prefix=path).delete()
                             # print((colored("Deleted Successfully '{}' Files".format(fo_user), 'green')))
-                            log.info((colored("Deleted %s Files Successfully" % fo_user, 'green')))
+                            logger.info((colored("Deleted {} Files Successfully".format(fo_user), 'green')))
                             # print("--------------------------------------------")
                             time.sleep(2)
                         except ClientError as e:
-                            log.error("Unexpected error: %s" % e)
+                            logger.error("Unexpected error: %s" % e)
                             time.sleep(2)
 
                         # Trying To Detach user From Policy
                         try:
                             response_policy = policy.detach_user(
                                 UserName=fo_user)
-                            log.info((colored("Detached user %s Successfully" % fo_user, 'green')))
+                            logger.info((colored("Detached user {} Successfully".format(fo_user), 'green')))
                             time.sleep(2)
 
                         except client.exceptions.NoSuchEntityException :
-                            log.info((colored("user %s Policy Was Not Found" % fo_user, 'yellow')))
+                            logger.info((colored("user {} Policy Was Not Found".format(fo_user), 'yellow')))
                             time.sleep(2)
 
                         # Trying To Delete user Login Profile (Password)
                         try:
                             response = client.delete_login_profile(
                                 UserName=fo_user)
-                            log.info((colored("Successfully Deleted  %s Login Profile" % fo_user, 'green')))
+                            logger.info((colored("Successfully Deleted {} Login Profile" .format(fo_user), 'green')))
                             time.sleep(2)
 
                         except client.exceptions.NoSuchEntityException:
-                            log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
+                            logger.info((colored("Login Profile {} Not Found".format(fo_user), 'yellow')))
                             time.sleep(2)
 
                         # Trying To Remove user From Group (Permission)
@@ -84,11 +84,11 @@ def delete_outdated_usernames():
                             response = client.remove_user_from_group(
                                 GroupName=group,
                                 UserName=fo_user)
-                            log.info((colored("Successfully Removed %s From Group" % fo_user, 'green')))
+                            logger.info((colored("Successfully Removed {} From Group".format(fo_user), 'green')))
                             time.sleep(2)
 
                         except client.exceptions.NoSuchEntityException:
-                            log.info((colored("Login Profile %s Not Found" % fo_user, 'yellow')))
+                            logger.info((colored("Login Profile {} Not Found".format(fo_user), 'yellow')))
                             time.sleep(2)
 
 
@@ -107,11 +107,11 @@ def delete_outdated_usernames():
                             response_del = client.delete_user(
                                 UserName=fo_user)
                             time.sleep(2)
-                            log.info((colored("Successfully Deleted user %s" % fo_user, 'green')))
-                            log.info("----------------------")
+                            logger.info((colored("Successfully Deleted user {}".format(fo_user), 'green')))
+                            logger.info("----------------------")
                             time.sleep(2)
                         except ClientError as e:
-                            log.error("Unexpected error: %s" % e)
+                            logger.error("Unexpected error: %s" % e)
                             time.sleep(2)
                             pass
                         """
@@ -122,16 +122,16 @@ def delete_outdated_usernames():
                                     if (response['Users'][i]['UserName']) == admin:
                                         print("Deleted All Exipred Users! - Only Admin user '{}' Is ACTIVE ".format(admin))
                                         time.sleep(3)
-                                        log.info('----------------------')
+                                        logger.info('----------------------')
                                         continue
                                     else:
                                         continue
                             else:# iam output after Deletion else (If or no is FALSE)
                                 print("There Are No Sub's")
-                                log.info('No Subs')
+                                logger.info('No Subs')
                                 time.sleep(3.5)
-                                log.info('----------------------')
-                                log.info('End Log')
+                                logger.info('----------------------')
+                                logger.info('End Log')
                         except:
                             pass
                         """
@@ -139,13 +139,13 @@ def delete_outdated_usernames():
             time.sleep(1.5)
             print('No Subs')
             time.sleep(1.5)
-            print((colored("Only Admin user '%s' is active" % admin, 'yellow')))
+            print((colored("Only Admin user '{}' is active".format(admin), 'yellow')))
             time.sleep(1.5)
 
 
         # except KeyboardInterrupt:
-        #     log.info('End Log')
-        #     log.info('----------------------')
+        #     logger.info('End Log')
+        #     logger.info('----------------------')
         #     print((colored("Interrupted!", 'yellow')))
         #     exit(0)
 

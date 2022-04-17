@@ -45,7 +45,7 @@ def get_user_age_seconds(username):
     if user_seconds > max_user_age_seconds and username !=(admin):
         expired_sub = True
 
-        log.info((colored("user %s is expired " % username, 'red')))
+        logger.info((colored("user %s is expired " % username, 'red')))
 
 
     else:
