@@ -20,12 +20,12 @@ def response(username,search_str,number=1):
     log.info('Start Log')
     # Creating a username for Youtube Crawler
     create_user(username)
-    log.info('frontend: %s Created!', username)
+    log.info('User: %s Created!', username)
     time.sleep(1.6)
 
     # Asking frontend for a Search String
     # If you only want to download a short test video enter ---> youtube-dl test video
-    log.info('frontend: %s selected %s to download', username, search_str)
+    log.info('User: %s selected %s to download', username, search_str)
     time.sleep(1.6)
 
 

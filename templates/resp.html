@@ -6,9 +6,10 @@
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
 </head>
 <body>
-  <div class="title">Thank You {{username}} For Using YouTube Crawler!</div>
-   <video width="320" height="240" controls>
-    <source src={{ url_for('static', filename="youtube.mp4") }} type="video/mp4">
+    <div class="title">Thank You {{username}} For Using YouTube Crawler!</div>
+
+ <video width="320" height="240" controls>
+    <source src={{ url_for('static', filename=search_str) }} type="video/mp4">
     Your browser does not support the video tag.
   </video>
 

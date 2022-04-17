@@ -5,7 +5,7 @@ from config.config import *
 from logger.user_logger import *
 
 #ENV VARS
-YDL_OPTIONS = {'format': 'bestvideo', 'noplaylist':'True'}
+YDL_OPTIONS = {'format': 'bestvideo', 'noplaylist':'True',}
 custom_profile = bool(False)
 s3_client = boto3.client('s3')
 
@@ -24,10 +24,11 @@ s3_client = boto3.client('s3')
 
 
 # Youtube-DL Serach Function
-def search(arg,number):
+def search(search_str,number):
     try:
+        YDL_OPTIONS['outtmpl'] = './static/{}.mp4'.format(search_str)
         with YoutubeDL(YDL_OPTIONS) as ydl:
-            videos = ydl.extract_info(f"ytsearch{number}:{arg}", download=True)['entries']
+            videos = ydl.extract_info(f"ytsearch{number}:{search_str}", download=True)['entries']
             return [ydl.prepare_filename(video) for video in videos],
     except Exception as g:
         log.error("Error", g)

@@ -15,7 +15,7 @@ def upload():
     search_str = request.form.get("search_str")
     response(username, search_str)
 
-    return render_template('resp.html', username=username, search_str=search_str)
+    return render_template('resp.html', username=username, search_str=search_str+".mp4")
 
 
 app.run(host='0.0.0.0', port=8081)
