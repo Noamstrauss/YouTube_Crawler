@@ -40,6 +40,7 @@ resource "kubernetes_deployment" "yt-deployment-front" {
         container {
           image = "${var.registry_url}/youtube_crawler:latest"
           name  = var.frontend_name
+          image_pull_policy = "Always"
           port {
             container_port = 8081
           }
