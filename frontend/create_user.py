@@ -46,12 +46,12 @@ def create_user(username):
         if e.response['Error']['Code'] == 'EntityAlreadyExists':
             log.error(colored('user already exists', 'red'))
             log.info("Please Enter A Different User Name")
-            username = input("Enter Username: ")
+            # username = input("Enter Username: ")
 
         else:
             log.error("Unexpected error: %s" % e)
-            username = input("Enter Username: ")
+            # username = input("Enter Username: ")
 
 
-if __name__ == '__main__':
-    create_user("test2")
+# if __name__ == '__main__':
+#     create_user("test2")
