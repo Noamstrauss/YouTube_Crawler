@@ -2,10 +2,12 @@ TODO:
 1. grafana dashboard
 2. backand as cronjob
 3. grafana email alert
+4. route53 a record
+5. loading scroll in html
 
 
 issues:
 1. if inserted video name with / it will fail to preview video
 2. cronjob starts but won't continue
-
+3. no audio in video preview
 

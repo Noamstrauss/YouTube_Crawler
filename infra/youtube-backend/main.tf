@@ -29,7 +29,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back" {
               name              = var.backend_name
               image             = "${var.registry_url}/youtube_crawler:latest"
               command           = ["python3", "backend_run.py"]
-              image_pull_policy = "IfNotPresent"
+              image_pull_policy = "Always"
             }
           }
         }

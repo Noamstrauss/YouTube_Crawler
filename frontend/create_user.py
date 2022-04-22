@@ -23,7 +23,6 @@ client = boto3.client('iam')
 
 # An Function That Creates An frontend In IAM
 def create_user(username):
-
     try:
         response = client.create_user(
             UserName=username,
