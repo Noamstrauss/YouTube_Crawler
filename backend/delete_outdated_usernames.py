@@ -35,7 +35,7 @@ def delete_outdated_usernames():
     response = client.list_users() # get all users in aws
     users_d = (response['Users']) # format list only to the user nested list ( dictionary)
     for x in range(len(users_d)):
-        logger.info((colored("Searching for subs...", 'yellow')))
+        logger.info((colored("Searching for subs...", 'magenta')))
         time.sleep(0.2)
         fo_user = users_d[x]['UserName']
         tags = client.list_user_tags(UserName=fo_user)
