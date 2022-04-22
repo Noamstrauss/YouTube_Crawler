@@ -52,13 +52,13 @@ variable "frontend_name" {
 }
 
 variable "region_zone_id" {
-  default = "Z23TAZ6LKFMNIO"
+  default     = "Z23TAZ6LKFMNIO"
   description = "Eu-north-1 zone id"
-  type = string
+  type        = string
 }
 
 variable "hosted_zone_name" {
-  default = "jenkins-server.click"
+  default     = "jenkins-server.click"
   description = "Hosted zone name"
-  type = string
+  type        = string
 }
