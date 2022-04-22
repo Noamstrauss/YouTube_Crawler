@@ -10,5 +10,6 @@ for user in users_d:
         for tag in tags['Tags']:
             if tag['Key'] == 'YoutubeAppSubscriber' and tag['Value'] == user['UserName']:
                 print (user['UserName'])
-    # else:
-    #     print("No youtube sub's found!")
+else:
+    print("No youtube sub's found!")
+    exit(0)
