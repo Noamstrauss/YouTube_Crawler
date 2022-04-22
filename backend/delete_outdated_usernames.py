@@ -35,6 +35,8 @@ def delete_outdated_usernames():
     response = client.list_users() # get all users in aws
     users_d = (response['Users']) # format list only to the user nested list ( dictionary)
     for x in range(len(users_d)):
+        logger.info((colored("Searching for subs...", 'yellow')))
+        time.sleep(0.2)
         fo_user = users_d[x]['UserName']
         tags = client.list_user_tags(UserName=fo_user)
         if tags['Tags']:
@@ -135,19 +137,20 @@ def delete_outdated_usernames():
                         except:
                             pass
                         """
-        else:
-            time.sleep(1.5)
-            print('No Subs')
-            time.sleep(1.5)
-            print((colored("Only Admin user '{}' is active".format(admin), 'yellow')))
-            time.sleep(1.5)
+    else:
+        time.sleep(1.5)
+        logger.info((colored("No Subs", 'green')))
+        time.sleep(1.5)
+        logger.info((colored("Only Admin user '{}' is active".format(admin), 'green')))
+        time.sleep(1.5)
+        # exit(0)
 
 
         # except KeyboardInterrupt:
         #     logger.info('End Log')
         #     logger.info('----------------------')
         #     print((colored("Interrupted!", 'yellow')))
-        #     exit(0)
+        #     exit(1)
 
 
 

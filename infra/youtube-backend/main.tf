@@ -7,7 +7,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back" {
   spec {
     concurrency_policy            = "Replace"
     failed_jobs_history_limit     = 1
-    schedule                      = "*/15 * * * *"
+    schedule                      = "*/30 * * * *"
     starting_deadline_seconds     = 10
     successful_jobs_history_limit = 0
     job_template {
@@ -17,7 +17,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back" {
         }
       }
       spec {
-        backoff_limit              = 5
+        backoff_limit              = 10
         ttl_seconds_after_finished = 100
         template {
           metadata {}
