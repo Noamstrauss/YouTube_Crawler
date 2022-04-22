@@ -2,7 +2,7 @@ import boto3
 from datetime import datetime, timezone
 from termcolor import colored
 from config.config import *
-from logger.server_logger import *
+from loguru import logger
 client = boto3.client('iam')
 # AWS_PROFILE Config
 # custom_profile = bool(False)
