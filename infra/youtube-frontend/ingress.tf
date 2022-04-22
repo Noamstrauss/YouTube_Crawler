@@ -1,6 +1,6 @@
 resource "kubernetes_service_v1" "example" {
   metadata {
-    name = "ingress-service"
+    name = "youtube-frontend-service"
     namespace = var.namespace
   }
   spec {
@@ -8,7 +8,7 @@ resource "kubernetes_service_v1" "example" {
       name = "youtube-frontend"
     }
     port {
-      port        = 8081
+      port        = 80
       target_port = 8081
       protocol    = "TCP"
     }
@@ -56,3 +56,4 @@ resource "kubernetes_ingress_v1" "frontend" {
 #output "load_balancer_ip" {
 #  value = kubernetes_ingress_v1.example.status.0.load_balancer.0.ingress.0.ip
 #}
+

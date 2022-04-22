@@ -28,6 +28,14 @@ module "youtube-frontend" {
   depends_on    = [module.s3]
 }
 
+module "route53" {
+  source = "./infra/route53"
+  frontend_name = var.frontend_name
+  load_balancer_hostname = module.youtube-frontend.hostname
+  region_zone_id = var.region_zone_id
+  hosted_zone_name = var.hosted_zone_name
+}
+
 
 
 
