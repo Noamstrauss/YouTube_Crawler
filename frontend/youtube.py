@@ -4,8 +4,10 @@ from termcolor import colored
 from config.config import *
 from loguru import logger
 
+
 #ENV VARS
-YDL_OPTIONS = {'format': 'bestvideo', 'noplaylist':'True',}
+# YDL_OPTIONS = {'format': 'bestvideo', 'noplaylist':'True', 'extractaudio':'True', 'audioformat':'mp3'}
+YDL_OPTIONS = {'noplaylist':'True',}
 custom_profile = bool(False)
 s3_client = boto3.client('s3')
 
