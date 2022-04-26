@@ -1,7 +1,7 @@
 ### Grafana
 environment     = "dev"
 elastic_ver     = "7.17.1"
-index_name      = "logstash-*"
+index_name      = "metricbeat-*"
 namespace       = "noams"
 grafana_version = "6.24.1"
 
