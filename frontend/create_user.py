@@ -43,7 +43,7 @@ def create_user(username):
 
     except ClientError as e:
         if e.response['Error']['Code'] == 'EntityAlreadyExists':
-            logger.error(colored('user already exists', 'red'))
+            logger.error((colored("Username '{}' already exists".format(username), 'red')))
             logger.info("Please Enter A Different User Name")
 
 
