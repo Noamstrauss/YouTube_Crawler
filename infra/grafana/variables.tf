@@ -13,12 +13,6 @@ variable "index_name" {
   description = "index name to use in elasticsearch datasource"
 }
 
-variable "namespace" {
-  default     = ""
-  description = "namespace to create all resources"
-  type        = string
-}
-
 variable "grafana_version" {
   default     = ""
   description = ""

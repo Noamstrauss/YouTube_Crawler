@@ -24,7 +24,7 @@ admin = "aws35"
 bucket ='youtube-crawler-files'
 
 #TODO Define frontend Maximun Subscriber age
-max_user_age_seconds = (2.0)
+max_user_age_seconds = (180.0)
 #max_user_age_seconds = (172800.0)
 
 #TODO Define Group To Add Users To (Group Is A Collection Of Policy's)

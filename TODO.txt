@@ -1,9 +1,8 @@
 TODO:
 1. grafana dashboard
-3. grafana email alert
-5. loading scroll in html
+2. grafana email alert
+3. loading scroll in html
 
-
-issues:
+Issues:
 1. if inserted video name with / it will fail to preview video
 

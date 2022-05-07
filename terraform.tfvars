@@ -1,11 +1,8 @@
 ### Grafana
 environment     = "dev"
 elastic_ver     = "7.17.1"
-index_name      = "metricbeat-*"
-namespace       = "noams"
+index_name      = "logstash-*"
 grafana_version = "6.24.1"
-
-
 
 ### Youtube Backend
 registry_url = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
@@ -14,3 +11,4 @@ backend_name = "youtube-backtend"
 
 ### Youtube Frontend
 frontend_name = "youtube-frontend"
+namespace     = "noams"

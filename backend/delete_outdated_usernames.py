@@ -32,12 +32,12 @@ logger.info('----------------------')
 logger.info('Start Log')
 # Deletes users older than max_user_age_seconds
 def delete_outdated_usernames():
-    response = client.list_users() # get all users in aws
-    users_d = (response['Users']) # format list only to the user nested list ( dictionary)
+    response = client.list_users()  # get all users in aws
+    users_d = (response['Users'])  # format list only to the user nested list ( dictionary)
     for x in range(len(users_d)):
-        logger.info((colored("Searching for subs...", 'magenta')))
-        time.sleep(0.2)
         fo_user = users_d[x]['UserName']
+        logger.info((colored("Checking if '{}' is a sub...".format(fo_user), 'magenta')))
+        time.sleep(0.2)
         tags = client.list_user_tags(UserName=fo_user)
         if tags['Tags']:
             for tag in tags['Tags']:
@@ -66,7 +66,7 @@ def delete_outdated_usernames():
                             logger.info((colored("Detached user {} Successfully".format(fo_user), 'green')))
                             time.sleep(2)
 
-                        except client.exceptions.NoSuchEntityException :
+                        except client.exceptions.NoSuchEntityException:
                             logger.info((colored("user {} Policy Was Not Found".format(fo_user), 'yellow')))
                             time.sleep(2)
 
@@ -74,7 +74,7 @@ def delete_outdated_usernames():
                         try:
                             response = client.delete_login_profile(
                                 UserName=fo_user)
-                            logger.info((colored("Successfully Deleted {} Login Profile" .format(fo_user), 'green')))
+                            logger.info((colored("Successfully Deleted {} Login Profile".format(fo_user), 'green')))
                             time.sleep(2)
 
                         except client.exceptions.NoSuchEntityException:
@@ -92,7 +92,6 @@ def delete_outdated_usernames():
                         except client.exceptions.NoSuchEntityException:
                             logger.info((colored("Login Profile {} Not Found".format(fo_user), 'yellow')))
                             time.sleep(2)
-
 
                         """
                         try:
@@ -139,20 +138,14 @@ def delete_outdated_usernames():
                         """
     else:
         time.sleep(1.5)
-        logger.info((colored("No Subs", 'green')))
+        logger.info((colored("No Subs Found", 'green')))
         time.sleep(1.5)
         logger.info((colored("Only Admin user '{}' is active".format(admin), 'green')))
         time.sleep(1.5)
         # exit(0)
-
 
         # except KeyboardInterrupt:
         #     logger.info('End Log')
         #     logger.info('----------------------')
         #     print((colored("Interrupted!", 'yellow')))
         #     exit(1)
-
-
-
-
-
