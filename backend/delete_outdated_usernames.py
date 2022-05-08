@@ -138,7 +138,7 @@ def delete_outdated_usernames():
                             pass
                         """
                     else:
-                        logger.info((colored("User '{}' active but not expired yet!".format(fo_user), 'yellow')))
+                        logger.info((colored("User '{}' is active but not expired yet!".format(fo_user), 'yellow')))
     else:
         time.sleep(1.5)
         logger.info((colored("No Subs Found", 'green')))

@@ -1,6 +1,7 @@
 import boto3
 from termcolor import colored
 from loguru import logger
+from config.config import *
 client = boto3.client('iam')
 active = False
 response = client.list_users()
@@ -12,9 +13,11 @@ for x in range(len(users_d)):
     if tags['Tags']:
         for tag in tags['Tags']:
             if tag['Key'] == 'YoutubeAppSubscriber' and tag['Value'] == fo_user:
-                logger.info((colored("'{}' is a active sub!".format(fo_user), 'green')))
+                logger.info((colored("User '{}' is active but not expired yet!".format(fo_user), 'green')))
                 active = True
 else:
     if not active:
-        logger.info((colored("No youtube sub's found!", 'red')))
+        logger.info((colored("No Subs Found", 'green')))
+        logger.info((colored("Only Admin user '{}' is active".format(admin), 'green')))
+
     exit(0)
