@@ -1,7 +1,7 @@
 import boto3
 from termcolor import colored
 from loguru import logger
-from config.config import *
+from config.config import admin
 client = boto3.client('iam')
 active = False
 response = client.list_users()
