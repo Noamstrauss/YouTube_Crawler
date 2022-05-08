@@ -42,6 +42,7 @@ def delete_outdated_usernames():
         if tags['Tags']:
             for tag in tags['Tags']:
                 if tag['Key'] == 'YoutubeAppSubscriber' and tag['Value'] == fo_user:
+                    logger.info((colored("'{}' is a active sub!".format(fo_user), 'cyan')))
                     expired = get_user_age_seconds(fo_user)
                     if expired == True and fo_user != admin:
 
@@ -136,6 +137,8 @@ def delete_outdated_usernames():
                         except:
                             pass
                         """
+                    else:
+                        logger.info((colored("User '{}' is not expired yet!".format(fo_user), 'yellow')))
     else:
         time.sleep(1.5)
         logger.info((colored("No Subs Found", 'green')))
