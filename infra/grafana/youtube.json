@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 5,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -182,7 +182,7 @@
               "type": "count"
             }
           ],
-          "query": "/.*Only Admin user.*/",
+          "query": "/.*active but not expired yet!.*/",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -191,6 +191,7 @@
       "type": "stat"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 35,
   "style": "dark",
   "tags": [],
@@ -205,6 +206,6 @@
   "timezone": "",
   "title": "Youtube Crawler Dashboard",
   "uid": "jvCOMa_nz",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }

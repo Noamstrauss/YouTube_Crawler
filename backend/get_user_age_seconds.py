@@ -40,7 +40,7 @@ def get_user_age_seconds(username):
 
 # Calculating Users Age in Seconds
     user_seconds = (datetime.now(timezone.utc) - user_create_date).total_seconds()
-
+    logger.debug(user_seconds)
 # Determining if user Expired And Excluding Admin From Being Expired
     if user_seconds > max_user_age_seconds and username !=(admin):
         expired_sub = True
