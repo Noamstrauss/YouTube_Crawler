@@ -53,7 +53,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
     job_template {
       metadata {
         labels = {
-          name = kubernetes_cron_job.yt-cronjob-back_checker.metadata[0].name
+          name = "youtube-backend-checker"
         }
       }
       spec {
@@ -66,7 +66,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
             automount_service_account_token = false
             restart_policy                  = "OnFailure"
             container {
-              name              = kubernetes_cron_job.yt-cronjob-back_checker.metadata[0].name
+              name              = "youtube-backend-checker"
               image             = "${var.registry_url}/youtube_crawler:latest"
               command           = ["python3", "backend/get_users_tags.py"]
               image_pull_policy = "Always"
