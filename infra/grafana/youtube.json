@@ -187,11 +187,10 @@
           "timeField": "@timestamp"
         }
       ],
-      "title": "Only Admin user",
+      "title": "Only Admin User Active",
       "type": "stat"
     }
   ],
-  "refresh": "5s",
   "schemaVersion": 35,
   "style": "dark",
   "tags": [],
