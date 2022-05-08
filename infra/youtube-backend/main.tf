@@ -7,7 +7,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_deleter" {
   spec {
     concurrency_policy            = "Replace"
     failed_jobs_history_limit     = 1
-    schedule                      = "*/30 * * * *"
+    schedule                      = "*/5 * * * *"
     starting_deadline_seconds     = 10
     successful_jobs_history_limit = 0
     job_template {
@@ -47,7 +47,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
   spec {
     concurrency_policy            = "Allow"
     failed_jobs_history_limit     = 1
-    schedule                      = "*/5 * * * *"
+    schedule                      = "*/3 * * * *"
     successful_jobs_history_limit = 0
     job_template {
       metadata {
