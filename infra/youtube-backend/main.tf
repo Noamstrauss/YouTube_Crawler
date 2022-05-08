@@ -58,7 +58,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
       }
       spec {
         backoff_limit              = 10
-        ttl_seconds_after_finished = 100
+        ttl_seconds_after_finished = 300
         template {
           metadata {}
           spec {
