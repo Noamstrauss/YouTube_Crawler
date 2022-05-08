@@ -47,8 +47,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
   spec {
     concurrency_policy            = "Allow"
     failed_jobs_history_limit     = 1
-    schedule                      = "*/3 * * * *"
-    starting_deadline_seconds     = 5
+    schedule                      = "*/5 * * * *"
     successful_jobs_history_limit = 0
     job_template {
       metadata {
@@ -69,7 +68,7 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
               name              = "youtube-backend-checker"
               image             = "${var.registry_url}/youtube_crawler:latest"
               command           = ["python3", "backend/get_users_tags.py"]
-              image_pull_policy = "Always"
+              image_pull_policy = "IfNotPresent"
             }
           }
         }
