@@ -42,7 +42,7 @@ def delete_outdated_usernames():
         if tags['Tags']:
             for tag in tags['Tags']:
                 if tag['Key'] == 'YoutubeAppSubscriber' and tag['Value'] == fo_user:
-                    logger.info((colored("'{}' is a active sub!".format(fo_user), 'cyan')))
+                    # logger.info((colored("'{}' is a active sub!".format(fo_user), 'cyan')))
                     expired = get_user_age_seconds(fo_user)
                     if expired == True and fo_user != admin:
 
@@ -117,7 +117,7 @@ def delete_outdated_usernames():
                             time.sleep(2)
                             pass
                         """
-                        try:                     # iam output after Deletion
+                        try: # iam output after Deletion
                             if yes_or_no:  # If Statement Is True Printing Active Users In IAM
                                 response = client.list_users()
                                 for i in range(len(response['Users'])):
@@ -138,7 +138,7 @@ def delete_outdated_usernames():
                             pass
                         """
                     else:
-                        logger.info((colored("User '{}' is not expired yet!".format(fo_user), 'yellow')))
+                        logger.info((colored("User '{}' active but not expired yet!".format(fo_user), 'yellow')))
     else:
         time.sleep(1.5)
         logger.info((colored("No Subs Found", 'green')))
