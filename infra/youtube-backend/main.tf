@@ -45,10 +45,10 @@ resource "kubernetes_cron_job" "yt-cronjob-back_checker" {
     namespace = var.namespace
   }
   spec {
-    concurrency_policy            = "Replace"
+    concurrency_policy            = "Allow"
     failed_jobs_history_limit     = 1
     schedule                      = "*/3 * * * *"
-    starting_deadline_seconds     = 10
+    starting_deadline_seconds     = 5
     successful_jobs_history_limit = 0
     job_template {
       metadata {
