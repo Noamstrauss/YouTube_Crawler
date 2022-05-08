@@ -54,7 +54,7 @@ def get_user_age_seconds(username):
     return expired_sub
 
 if __name__ == '__main__':
-    get_user_age_seconds("noamsint")
+    get_user_age_seconds("test3")
 
 
 
