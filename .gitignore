@@ -1,6 +1,5 @@
 venv
 .idea
-infra
 *.m4a
 *.mp4
 *.webm

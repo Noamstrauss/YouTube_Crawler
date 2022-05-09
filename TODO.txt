@@ -1,0 +1,8 @@
+TODO:
+1. grafana dashboard
+2. grafana email alert
+3. add loading scroll in html
+4. fix import of config in get_user_tags
+Issues:
+1.  if inserted video name with / it will fail to preview video
+

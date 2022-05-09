@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Youtube Crawler</title>
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+</head>
+<body>
+  <div class="title">Thank You {{username}} For Using YouTube Crawler!</div>
+    <h3>
+   Your selected video:
+    </h3>
+    <video width="320" height="240" controls>
+        <source src={{ url_for('static', filename=search_str) }} type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</body>
+</html>

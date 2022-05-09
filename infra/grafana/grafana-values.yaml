@@ -1,0 +1,90 @@
+ingress:
+  enabled: true
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  ingressClassName: nginx
+  # Values can be templated
+  annotations:
+#     kubernetes.io/ingress.class: nginx
+#     kubernetes.io/tls-acme: "true"
+  labels: {}
+  path: /
+
+  # pathType is only for k8s >= 1.1=
+  pathType: Prefix
+
+  hosts:
+    - ${GRAFANA_HOST}
+
+
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: gp2
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # selectorLabels: {}
+  # subPath: ""
+  # existingClaim:
+
+  ## If persistence is not enabled, this allows to mount the
+  ## local storage in-memory to improve performance
+  ##
+  inMemory:
+    enabled: false
+    ## The maximum usage on memory medium EmptyDir would be
+    ## the minimum value between the SizeLimit specified
+    ## here and the sum of memory limits of all containers in a pod
+    ##
+    # sizeLimit: 300Mi
+
+adminUser: admin
+adminPassword: password
+
+grafana.ini:
+  smtp:
+    enabled: true
+    host: smtp-relay.sendinblue.com:587
+    user: <smtpuser>
+    password: <smtppass>
+    skip_verify: true
+    from_address: "noams-grafana-alerts@nde.com"
+    from_name: "Grafana-alerts"
+
+sidecar:
+  dashboards:
+    # To enable sidecar
+    enabled: true
+    # Label key that configMaps should have in order to be mounted
+    label: grafana_dashboard
+    # Folder where the configMaps are mounted in Grafana container
+    folder: /tmp/dashboards
+    # To enable searching configMap accross all namespaces
+    searchNamespace: ALL
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: elasticsearch
+      type: elasticsearch
+      uid: PAE1B8C8635429669
+      access: proxy
+      database: ${INDEX_NAME}
+      url: http://elasticsearch-master.default.svc.cluster.local:9200
+      isDefault: true
+      jsonData:
+        timeField: "@timestamp"
+        esVersion: ${ELASTIC_VER}
+    - name: elasticsearch_metricbeat
+      type: elasticsearch
+      access: proxy
+      database: "metricbeat-*"
+      url: http://elasticsearch-master.default.svc.cluster.local:9200
+      jsonData:
+        timeField: "@timestamp"
+        esVersion: ${ELASTIC_VER}

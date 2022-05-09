@@ -1,0 +1,34 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "NotResource": [
+                "arn:aws:s3:::<your-bucket-here>",
+                "arn:aws:s3:::<your-bucket-here>/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<your-bucket-here>",
+                "arn:aws:s3:::<your-bucket-here>/*"
+            ]
+        }
+    ]
+}
