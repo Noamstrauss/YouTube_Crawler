@@ -33,7 +33,7 @@ Project is created with:
 To run this project,
 
 1.Install AWS CLI:
->[AWS CLI Installation](https://github.com/Noamstrauss/YouTube_Crawler)
+>[AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 2.Install Requirements:
 ```shell
